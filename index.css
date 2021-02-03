@@ -1,0 +1,71 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#search-bar {
+  z-index: 999;
+  width: 100%;
+  height: 12%;
+  background-color: wheat;
+}
+
+#search-bar form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+#select-display-container {
+  z-index: 888;
+  width: 100%;
+  height: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+#select-display-container button {
+  width: 6em;
+  height: 1.6em;
+  background: none;
+  border: black solid 1px;
+}
+
+#select-display-container button:focus {
+  background-color: rgb(72, 130, 255);
+}
+
+#display-container {
+  height: 80%;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.overview {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  transition: all 400ms;
+  margin: 0;
+  z-index: 1;
+}
+
+.zoomable {
+  transition: all 800ms;
+}
+
+.zoom {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  border: 2px solid gray;
+  border-radius: 1em;
+  margin:0;
+  z-index: 0;
+}
