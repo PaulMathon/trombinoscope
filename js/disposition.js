@@ -3,7 +3,7 @@ import { newDisplay } from "./display.js";
 export function manageDisposition(data, criterias) {
   function onChangeDisposition(newDisposition) {
     return () => {
-      const displayContainer = document.getElementById("display-container");
+      const displayContainer = document.getElementById("display-content");
       while (displayContainer.firstChild) {
         displayContainer.removeChild(displayContainer.firstChild);
       }

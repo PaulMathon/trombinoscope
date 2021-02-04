@@ -1,15 +1,19 @@
 import { config } from "./config.js";
+import { setZoomable } from "./zoom.js";
 
 export function newDisplay(data, criterias, path) {
   
   const tree = createDisplayTree(data, criterias, path);
 
-  let displayContainer = document.getElementById("display-container");
+  let displayContainer = document.getElementById("display-content");
   displayContainer = addChildContainers(displayContainer, tree);
-  
+  const children = displayContainer.children;
+  for (const child of children) {
+    child.classList.add("zoomable");
+  }
   const overviewElements = document.getElementsByClassName("overview");
   manageOverviewDisplay(overviewElements);
-  
+
   return displayContainer;
 }
 
@@ -63,7 +67,6 @@ function addChildContainers(rootElement, tree) {
 }
 
 function buildContainer(category) {
-
   let container = document.createElement("div");
   container.classList.add("container");
   container.classList.add("overview");
