@@ -9,7 +9,6 @@ function main() {
       const criterias = getCriterias(data);
       manageDisposition(data, criterias);
       newDisplay(data, criterias, ["specialities", "cabinets"]);
-      setZoomable();
     });
 }
 

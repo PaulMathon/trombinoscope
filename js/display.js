@@ -13,7 +13,8 @@ export function newDisplay(data, criterias, path) {
   }
   const overviewElements = document.getElementsByClassName("overview");
   manageOverviewDisplay(overviewElements);
-
+  setZoomable();
+  optimizeContainerHeight();
   return displayContainer;
 }
 
@@ -109,4 +110,13 @@ function computeNbColAndLines(nbElements) {
   const nbColumns = Math.ceil(Math.sqrt(nbElements));
   const nbLines = Math.ceil(nbElements / nbColumns);
   return [nbColumns, nbLines];
+}
+
+function optimizeContainerHeight() {
+  const containers = document.querySelectorAll(".container");
+  const displayContainer = document.getElementById('display-container');
+  const ratio = displayContainer.clientHeight / displayContainer.clientWidth;
+  containers.forEach((container) => {
+    container.style.height = `${Math.round(ratio*container.offsetWidth)}px`;
+  });
 }

@@ -555,7 +555,6 @@ var Scroller;
 				zoom = self.__zoomLevel;
 
 			}
-			console.log("state", left, top);
 
 			if (!self.options.scrollingX) {
 
@@ -584,7 +583,6 @@ var Scroller;
 				}
 
 			}
-			console.log("top", self.__maxScrollTop, top);
 			// Limit for allowed ranges
 			/* left = Math.max(Math.min(self.__maxScrollLeft, left), 0);
 			top = Math.max(Math.min(self.__maxScrollTop, top), 0); */
@@ -1152,8 +1150,6 @@ var Scroller;
 
 			self.__maxScrollLeft = Math.max((self.__contentWidth * zoomLevel) - self.__clientWidth, 0);
 			self.__maxScrollTop = Math.max((self.__contentHeight * zoomLevel) - self.__clientHeight, 0);
-			console.log("Max scroll left", self.__maxScrollLeft);
-			console.log("Max scroll top", self.__maxScrollTop);
 		},
 
 

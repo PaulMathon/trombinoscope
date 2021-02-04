@@ -22,14 +22,12 @@ export function setZoomable() {
     const onZoom = (event) => {
       const [nbCol, nbLines] = computeNbColAndLines(zoomableElements.length);
       const [coordX, coordY] = computeCoords(zoomableEl, [nbCol, nbLines]);
-      console.log("heyy", coordX, coordY);
       if (zoomableEl.classList.contains("zoomable")) {
         zoomableEl.classList.remove("zoomable");
-        scroller.scrollTo(coordX*contentWidth/nbCol, coordY*contentHeight / nbLines, true, 2.5);
+        scroller.scrollTo(coordX*contentWidth/nbCol, coordY*contentHeight/nbLines, true, nbCol);
       } else {
         zoomableEl.classList.add("zoomable");
         scroller.scrollTo(0, 0, true, 1);
-
       }
     };
     zoomableEl.addEventListener("click", onZoom);
