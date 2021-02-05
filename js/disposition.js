@@ -2,7 +2,11 @@ import { newDisplay } from "./display.js";
 
 export function manageDisposition(data, criterias) {
   function onChangeDisposition(newDisposition) {
-    return () => {
+    return (event) => {
+      // Set clicked button to active
+      document.querySelectorAll(".disposition-btn").forEach((button) => button.classList.remove("active"));
+      event.target.classList.add("active");
+      
       const displayContainer = document.getElementById("display-content");
       while (displayContainer.firstChild) {
         displayContainer.removeChild(displayContainer.firstChild);
@@ -12,7 +16,7 @@ export function manageDisposition(data, criterias) {
   }
 
   const specialityButton = document.getElementById("speciality-btn");
-  specialityButton.focus();
+  specialityButton.classList.add("active");
   specialityButton.addEventListener("click",
     onChangeDisposition(["specialities", "cabinets"])
   );

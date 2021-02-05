@@ -1,7 +1,6 @@
 import { fetchPractitioners, getCriterias } from "./js/data.js";
 import { newDisplay } from "./js/display.js";
 import { manageDisposition } from "./js/disposition.js";
-import { setZoomable } from "./js/zoom.js";
 
 function main() {
   fetchPractitioners()

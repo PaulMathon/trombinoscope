@@ -33,7 +33,7 @@ html, body {
   border: black solid 1px;
 }
 
-#select-display-container button:focus {
+#select-display-container button.active {
   background-color: rgb(72, 130, 255);
 }
 
