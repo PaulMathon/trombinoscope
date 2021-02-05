@@ -1,5 +1,3 @@
-
-
 export function setZoomable() {
   const container = document.getElementById("display-container");
   const content = document.getElementById("display-content");

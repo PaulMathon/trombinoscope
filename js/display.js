@@ -109,7 +109,7 @@ function manageOverviewDisplay(overviewElements) {
 function computeNbColAndLines(nbElements) {
   const nbColumns = Math.ceil(Math.sqrt(nbElements));
   const nbLines = Math.ceil(nbElements / nbColumns);
-  return [nbColumns, nbLines];
+  return [nbColumns < 2 ? 2 : nbColumns, nbLines < 2 ? 2 : nbLines];
 }
 
 function optimizeContainerHeight() {
@@ -117,6 +117,22 @@ function optimizeContainerHeight() {
   const displayContainer = document.getElementById('display-container');
   const ratio = displayContainer.clientHeight / displayContainer.clientWidth;
   containers.forEach((container) => {
-    container.style.height = `${Math.round(ratio*container.offsetWidth)}px`;
+    const nbContainers = getNbContainers(container);
+    const [nbCol, nbLines] = computeNbColAndLines(nbContainers);
+    let height = Math.round((container.parentElement.parentElement.clientHeight/nbLines)*0.80);
+    const newHeight = Math.round(ratio*container.offsetWidth);
+    if (newHeight < height) {
+      height = newHeight;
+    }
+    const width = (container.parentElement.parentElement.clientWidth / nbCol) * 0.85;
+    container.style.height = `${height}px`;
+    container.style.width = `${width}px`;
+
+
   });
+}
+
+function getNbContainers(container) {
+  const sameLevelHtmlElements = Array.from(container.parentElement.parentElement.children);
+  return sameLevelHtmlElements.filter((element) => element.classList.contains("container-wrapper")).length;
 }
