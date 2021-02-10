@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+  <script type="module" src="index.js"></script>
+  <script src="./js/lib/Scroller.js"></script>
+  <script src="./js/lib/Animate.js"></script>
+</head>
+<body>
+  <div id="search-bar">
+    <form action="submit">
+      <div>
+        <input type="text" name="input-name" id="input-name" placeholder="Nom du praticien">
+      </div>
+      <div>
+        <input type="text" name="combo-spe" list="specialities" placeholder="Spécialité">
+        <datalist id="specialities">
+          <option value="Spé1"></option>
+          <option value="Spé2"></option>
+          <option value="Spé3"></option>
+          <option value="Spé4"></option>
+          <option value="Spé5"></option>
+          <option value="Spé6"></option>
+        </datalist>
+      </div>
+      <div>
+        <input type="text" name="combo-city" list="city" placeholder="Ville">
+        <datalist id="city">
+          <option value="Ville1"></option>
+          <option value="Ville2"></option>
+          <option value="Ville3"></option>
+          <option value="Ville4"></option>
+          <option value="Ville5"></option>
+          <option value="Ville6"></option>
+          <option value="Ville7"></option>
+          <option value="Ville8"></option>
+        </datalist>
+      </div>
+      <div>
+        <input type="text" name="combo-cab" list="cab" placeholder="Cabinet">
+        <datalist id="cab">
+          <option value="Cabinet1"></option>
+          <option value="Cabinet2"></option>
+          <option value="Cabinet3"></option>
+          <option value="Cabinet4"></option>
+          <option value="Cabinet5"></option>
+          <option value="Cabinet6"></option>
+          <option value="Cabinet7"></option>
+          <option value="Cabinet8"></option>
+          <option value="Cabinet9"></option>
+          <option value="Cabinet10"></option>
+          <option value="Cabinet11"></option>
+          <option value="Cabinet12"></option>
+          <option value="Cabinet13"></option>
+          <option value="Cabinet14"></option>
+          <option value="Cabinet15"></option>
+        </datalist>
+      </div>
+      <button type="button">Rechercher</button>
+    </form>
+  </div>
+
+  <div id="select-display-container">
+    <button id="speciality-btn">Spécialité</button>
+    <button id="city-btn">Ville</button>
+    <button id="cabinet-btn">Cabinet</button>
+  </div>
+
+  <div id="display-container">
+    <div id="display-content" class="overview"></div>
+  </div>
+</body>
+</html>
