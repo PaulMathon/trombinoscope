@@ -9,7 +9,7 @@ function main() {
     .then((data) => {
       const criterias = getCriterias(data);
       const window = createDisplay(data, criterias, config.defaultPath);
-      const context = new Context(window)
+      const context = new Context(config, window)
       manageDisposition(data, context, criterias);
     });
 }

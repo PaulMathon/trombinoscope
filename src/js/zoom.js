@@ -1,21 +1,19 @@
 
 export class Zoomer {
 
-  constructor() {
-    this.scroller = initZoom();
+  constructor(zoomSpeedMs) {
+    this.scroller = initZoom(zoomSpeedMs);
   }
 
   activateZoom(context) {
     const zoomables = context.currentWindow.children;
     zoomables.forEach((zoomable, index) => {
       const onZoom = () => {
-        console.log("kikou", context.currentWindow, zoomable);
         if (context.currentWindow !== zoomable) {
-          // this.scroller.scrollTo(nbWindowX, nbWindowY, true, nbCol);
           const [nbCol, nbLines] = computeNbColAndLines(zoomables.length);
           const [coordX, coordY] = computeCoords(index, [nbCol, nbLines]);
+          console.log("coords", coordX, coordY);
           const htmlElement = context.currentWindow.htmlElement.querySelector(".window");
-          console.log("html element", htmlElement);
           this.scroller.scrollTo(
             coordX*htmlElement.clientWidth,
             coordY*htmlElement.clientHeight, true, context.getScale());
@@ -26,17 +24,17 @@ export class Zoomer {
     }); 
   }
 
-  zoomOut(window) {
-    console.log("zoomOut");
-
-    this.scroller.scrollTo(0, 0, true, 1);
+  zoomOut(context) {
+    const scale = context.getScale() / context.currentWindow.nbColumns;
+    this.scroller.scrollTo(0, 0, true, scale);
   }
 }
 
-function initZoom() {
+function initZoom(zoomSpeedMs) {
   const content = document.getElementById("display-content");
   const scroller = new Scroller((left, top, zoom) => {
     content.style.transform = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')';
+    content.style.transition = `${zoomSpeedMs}ms`;
   }, { zooming: true });
 
   const container = document.getElementById("display-container");
