@@ -55,7 +55,7 @@ function buildWindowUi(children, containerName) {
 
 function buidPractitionerCardUi(practitioner) {
   const img = document.createElement("img");
-  img.src = "../assets/profile.png";
+  img.src = "../assets/praticiens/profile.png";
   img.classList.add("practitioner-card");
   return img;
 }

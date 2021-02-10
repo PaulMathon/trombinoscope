@@ -9,14 +9,14 @@ export class Zoomer {
     const zoomables = context.currentWindow.children;
     zoomables.forEach((zoomable, index) => {
       const onZoom = () => {
-        if (context.currentWindow !== zoomable) {
-          const [nbCol, nbLines] = computeNbColAndLines(zoomables.length);
-          const [coordX, coordY] = computeCoords(index, [nbCol, nbLines]);
-          console.log("coords", coordX, coordY);
-          const htmlElement = context.currentWindow.htmlElement.querySelector(".window");
+        if (context.path.map(({name}) => name).indexOf(zoomable.name) === -1) {
+          const {scaleX, scaleY} = context.getScale();
+          const [coordX, coordY] = computeCoords(index,
+            [context.currentWindow.nbColumns, context.currentWindow.nbLines],
+            scaleX, scaleY);
+          const [windowWidth, windowHeight] = context.currentWindow.getDims();
           this.scroller.scrollTo(
-            coordX*htmlElement.clientWidth,
-            coordY*htmlElement.clientHeight, true, context.getScale());
+            coordX*windowWidth,coordY*windowHeight,true, scaleX);
           context.update(zoomable);
         } 
       };
@@ -25,7 +25,8 @@ export class Zoomer {
   }
 
   zoomOut(context) {
-    const scale = context.getScale() / context.currentWindow.nbColumns;
+    const { scaleX } = context.getScale();
+    const scale = scaleX / context.currentWindow.nbColumns;
     this.scroller.scrollTo(0, 0, true, scale);
   }
 }
@@ -49,9 +50,12 @@ function initZoom(zoomSpeedMs) {
   return scroller;
 }
 
-function computeCoords(zoomableEl, [nbCol, nbLines]) {
-  const [Xidx, Yidx] =  computeWindowCoords(zoomableEl, nbCol);
-  return [Xidx - ((nbCol-1)/2), Yidx - ((nbLines-1)/2)];
+function computeCoords(windowIndex, [nbCol, nbLines], scaleX, scaleY) {
+  const [Xidx, Yidx] =  computeWindowCoords(windowIndex, nbCol);
+  return [
+    Xidx - (scaleX - 1)/2,
+    Yidx - (scaleY-1)/2,
+  ];
 }
 
 /**
@@ -60,21 +64,11 @@ function computeCoords(zoomableEl, [nbCol, nbLines]) {
  * @param {int} nbCol number of columns of the element's parent
  * @returns {[int, int]} the coordinates
  */
-function computeWindowCoords(index, nbCol) {
+function computeWindowCoords(windowIndex, nbCol) {
   return [
-    index%nbCol,
-    ~~(index/nbCol),
+    windowIndex%nbCol,
+    ~~(windowIndex/nbCol),
   ];
 }
 
-/**
- * Compute the appropriate number of columns and lines
- * for a window according to its number of children
- * @param {int} nbElements number of elements in a grid
- * @returns {[int, int]} the number of columns and lines
- */
-function computeNbColAndLines(nbElements) {
-  const nbColumns = Math.ceil(Math.sqrt(nbElements));
-  const nbLines = Math.ceil(nbElements/nbColumns);
-  return [nbColumns, nbLines];
-}
+

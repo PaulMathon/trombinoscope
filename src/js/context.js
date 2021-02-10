@@ -18,7 +18,6 @@ export class Context {
   }
 
   update(window) {
-    console.log("update", window);
     if (this.currentWindow.children.map(({name}) => name).indexOf(window.name) !== -1) {
       this.path.push(window);
       this.currentWindow = window;
@@ -37,9 +36,7 @@ export class Context {
 
         }
       }
-    }
-
-    
+    }  
   }
 
   rollBackContext(windowName) {
@@ -53,13 +50,14 @@ export class Context {
   }
 
   getScale() {
-    console.log(this.path);
-    return this.path.reduce((prevValue, value) => prevValue * value.nbColumns, 1);
+    return this.path.reduce(({scaleX, scaleY}, value) =>
+    ({scaleX: scaleX * value.nbColumns, scaleY: scaleY * value.nbLines}),
+    {scaleX: 1, scaleY: 1});
   }
 }
 
 function initContextUi(context) {
-  const contextContainer = document.querySelector("#context-container");
+  const contextContainer = document.getElementById("context-container");
   contextContainer.childNodes.forEach((child) => {
     child.addEventListener("click", (event) => {
       context.rollBackContext(event.target.id);
