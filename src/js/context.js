@@ -52,17 +52,6 @@ export class Context {
       this.scrollPosition = {scrollX: 0, scrollY: 0};
     }
   }
-
-  getScale() {
-    return this.path.reduce(({scaleX, scaleY}, value) =>
-    ({scaleX: scaleX * value.nbColumns, scaleY: scaleY * value.nbLines}),
-    {scaleX: 1, scaleY: 1});
-  }
-
-  getPosition() {
-    const columnNumber = 1;
-    
-  }
 }
 
 function initContextUi(context) {

@@ -60,8 +60,22 @@ function buildWindowUi(children, containerName) {
 }
 
 function buidPractitionerCardUi(practitioner) {
-  const img = document.createElement("img");
-  img.src = "../assets/praticiens/profile.png";
+  const img = new Image();
+  let tryCount = 1;
+  const name = normalizeString(practitioner.name);
+  const lastname = normalizeString(practitioner.lastname);
+  img.onerror = () => {
+    try {
+      tryCount++;
+      if (tryCount === 2) {
+        img.src = `../assets/praticiens/${lastname}_${name}.jpg`;
+      } else {
+        img.src = "../assets/praticiens/profile.jpeg";
+      }
+    }
+    catch (e) {}
+  };
+  img.src = `../assets/praticiens/${name}_${lastname}.jpg`;
   img.classList.add("practitioner-card");
   return img;
 }
@@ -83,4 +97,11 @@ function setUpParent(window, parent) {
     }
   }
   return window;
+}
+
+function normalizeString(string) {
+  return string.toLowerCase()
+    .replace(" ", "-")
+    .replace("ç", "c")
+    .replace("é", "e");
 }

@@ -36,18 +36,19 @@ export class Window {
 
 export class PractitionerCard {
 
-  constructor({name, lastname, specialities, cabinets}, htmlElement) {
-    this.practitioner = new Practitioner(name, lastname, specialities, cabinets);
+  constructor({name, lastname, specialities, cabinets, telephones}, htmlElement) {
+    this.practitioner = new Practitioner(name, lastname, specialities, cabinets, telephones);
     this.htmlElement = htmlElement;
   }
 }
 
 class Practitioner {
-  constructor(name, lastname, specialities, cabinets) {
+  constructor(name, lastname, specialities, cabinets, telephones) {
     this.name = name;
     this.lastname = lastname;
     this.cabinets = cabinets;
     this.specialities = specialities;
+    this.telephones = telephones;
   }
 }
 

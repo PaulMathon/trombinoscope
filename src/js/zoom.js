@@ -15,7 +15,7 @@ export class Zoomer {
         if (context.path.map(({name}) => name).indexOf(zoomable.name) === -1) {
 
           const scale = container.clientWidth / zoomable.htmlElement.clientWidth;
-          const [coordX, coordY] = computeCoords(zoomable.htmlElement); 
+          const [coordX, coordY] = computeCoords(zoomable.htmlElement);
           this.scroller.scrollTo(coordX, coordY, true, scale);
           
           context.update(zoomable);
@@ -30,9 +30,10 @@ export class Zoomer {
   }
 
   zoomOut(context) {
-    const { scaleX } = context.getScale();
-    const scale = scaleX / context.currentWindow.nbColumns;
-    this.scroller.scrollTo(0, 0, true, scale);
+    const container = document.getElementById("display-container");
+    const scale = container.clientWidth / context.currentWindow.htmlElement.clientWidth;
+    const [coordX, coordY] = computeCoords(context.currentWindow.htmlElement);
+    this.scroller.scrollTo(coordX, coordY, true, scale);
   }
 }
 
@@ -46,9 +47,7 @@ function initZoom(zoomSpeedMs, content) {
   scroller.setPosition(0, 0);
   let containerWidth = container.clientWidth;
   let containerHeight = container.clientHeight;
-  let contentWidth = content.clientWidth;
-  let contentHeight = content.clientHeight;
-  scroller.setDimensions(containerWidth, containerHeight, contentWidth, contentHeight);
+  scroller.setDimensions(containerWidth, containerHeight, containerWidth, containerHeight);
 
   return scroller;
 }
