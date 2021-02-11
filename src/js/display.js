@@ -11,9 +11,9 @@ function createWindow(data, criterias, paths, rootPath) {
 
   if (paths.length === 0) {
     const children = createCards(data);
-    return new Window("practitioner",
+    return new Window(rootPath,
       children,
-      buildWindowUi(children)
+      buildWindowUi(children, rootPath)
     );
   }
   else {
@@ -47,7 +47,7 @@ function createCards(data) {
 
 function buildWindowUi(children, containerName) {
   let container = document.createElement("div");
-  container.classList.add("window")
+  container.classList.add("window");
   if (containerName && containerName !== "home") {
     let title = document.createElement("p");
     title.innerHTML = containerName;

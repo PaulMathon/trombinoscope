@@ -13,7 +13,8 @@ html, body {
 #search-bar {
   width: 100%;
   height: 10%;
-  background-color: wheat;
+  background-color: rgb(111, 201, 89);
+  box-shadow: 0px 17px 10px 0px #EBEBEB;
 }
 
 #search-bar form {
@@ -36,11 +37,26 @@ html, body {
   width: 6em;
   height: 1.6em;
   background: none;
-  border: black solid 1px;
+  border: none;
+  border-top: #797979 solid 1px;
+  border-bottom: #797979 solid 1px;
+  transition: background-color 200ms;
+}
+
+#disposition-container button:first-child {
+  border-top-left-radius: 0.4em;
+  border-bottom-left-radius: 0.4em;
+  border: rgb(121, 121, 121) solid 1px;
+}
+
+#disposition-container button:last-child {
+  border-top-right-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
+  border: rgb(121, 121, 121) solid 1px;
 }
 
 #disposition-container button.active {
-  background-color: rgb(72, 130, 255);
+  background-color: rgb(189, 189, 189);
 }
 
 #context-container {
@@ -68,19 +84,9 @@ html, body {
   width: 100%;
 }
 
-.container-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .window-title {
 
 }
-
-
 
 .window {
   width: 100%;
@@ -90,8 +96,6 @@ html, body {
   justify-content: center;
   align-items: center;
 }
-
-
 
 .overview {
   display: grid;
