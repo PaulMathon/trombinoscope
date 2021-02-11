@@ -65,15 +65,12 @@ function buidPractitionerCardUi(practitioner) {
   const name = normalizeString(practitioner.name);
   const lastname = normalizeString(practitioner.lastname);
   img.onerror = () => {
-    try {
-      tryCount++;
-      if (tryCount === 2) {
-        img.src = `../assets/praticiens/${lastname}_${name}.jpg`;
-      } else {
-        img.src = "../assets/praticiens/profile.jpeg";
-      }
+    tryCount++;
+    if (tryCount === 2) {
+      img.src = `../assets/praticiens/${lastname}_${name}.jpg`;
+    } else {
+      img.src = "../assets/praticiens/profile.jpeg";
     }
-    catch (e) {}
   };
   img.src = `../assets/praticiens/${name}_${lastname}.jpg`;
   img.classList.add("practitioner-card");
