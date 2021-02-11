@@ -13,53 +13,21 @@
   <div id="search-bar">
     <form action="submit">
       <div>
-        <input type="text" name="input-name" id="input-name" placeholder="Nom du praticien">
+        <input type="text" name="search-name" id="search-name" placeholder="Nom du praticien">
       </div>
       <div>
-        <input type="text" name="combo-spe" list="specialities" placeholder="Spécialité">
-        <datalist id="specialities">
-          <option value="Spé1"></option>
-          <option value="Spé2"></option>
-          <option value="Spé3"></option>
-          <option value="Spé4"></option>
-          <option value="Spé5"></option>
-          <option value="Spé6"></option>
-        </datalist>
+        <input type="text" id="input-speciality" name="combo-spe" list="search-speciality" placeholder="Spécialité">
+        <datalist id="search-speciality"></datalist>
       </div>
       <div>
-        <input type="text" name="combo-city" list="city" placeholder="Ville">
-        <datalist id="city">
-          <option value="Ville1"></option>
-          <option value="Ville2"></option>
-          <option value="Ville3"></option>
-          <option value="Ville4"></option>
-          <option value="Ville5"></option>
-          <option value="Ville6"></option>
-          <option value="Ville7"></option>
-          <option value="Ville8"></option>
-        </datalist>
+        <input type="text" id="input-cabinet" name="combo-cab" list="search-cabinet" placeholder="Cabinet">
+        <datalist id="search-cabinet"></datalist>
       </div>
       <div>
-        <input type="text" name="combo-cab" list="cab" placeholder="Cabinet">
-        <datalist id="cab">
-          <option value="Cabinet1"></option>
-          <option value="Cabinet2"></option>
-          <option value="Cabinet3"></option>
-          <option value="Cabinet4"></option>
-          <option value="Cabinet5"></option>
-          <option value="Cabinet6"></option>
-          <option value="Cabinet7"></option>
-          <option value="Cabinet8"></option>
-          <option value="Cabinet9"></option>
-          <option value="Cabinet10"></option>
-          <option value="Cabinet11"></option>
-          <option value="Cabinet12"></option>
-          <option value="Cabinet13"></option>
-          <option value="Cabinet14"></option>
-          <option value="Cabinet15"></option>
-        </datalist>
+        <input type="text" id="input-city" name="combo-city" list="search-city" placeholder="Ville">
+        <datalist id="search-city"></datalist>
       </div>
-      <button type="button">Rechercher</button>
+      <button type="button" id="search-btn">Rechercher</button>
     </form>
   </div>
 

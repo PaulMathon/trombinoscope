@@ -3,6 +3,12 @@ import { PractitionerCard, Window } from "./window.js";
 export function createDisplay(data, criterias, paths) {
   const window = createWindow(data, criterias, paths, "home", null);
 
+  const displayContent = document.getElementById("display-content");
+  if (displayContent.children.length) {
+    for (const child of displayContent.children) {
+      displayContent.removeChild(child);
+    }
+  }
   document.getElementById("display-content").appendChild(window.htmlElement);
   return window;
 }
