@@ -22,7 +22,6 @@ export class Window {
       contentElement.style["grid-template-columns"] = gridTemplateColumns;
       contentElement.style["grid-template-rows"] = gridTemplateRows;
     }
-
     return htmlElement;
   }
 
@@ -33,7 +32,6 @@ export class Window {
     }
     return [this.htmlElement.clientWidth, this.htmlElement.clientHeight];
   }
-
 }
 
 export class PractitionerCard {

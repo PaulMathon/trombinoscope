@@ -1,16 +1,20 @@
 import { PractitionerCard, Window } from "./window.js";
 
 export function createDisplay(data, criterias, paths) {
-  const window = createWindow(data, criterias, paths, "home");
+  const window = createWindow(data, criterias, paths, "home", null);
 
   document.getElementById("display-content").appendChild(window.htmlElement);
   return window;
 }
 
 function createWindow(data, criterias, paths, rootPath) {
+
   if (paths.length === 0) {
     const children = createCards(data);
-    return new Window("practitioner", children, buildWindowUi(children));
+    return new Window("practitioner",
+      children,
+      buildWindowUi(children)
+    );
   }
   else {
     const path = paths[0];
@@ -30,7 +34,9 @@ function createWindow(data, criterias, paths, rootPath) {
       }
     }
     const htmlElement = buildWindowUi(children, rootPath);
-    return new Window(rootPath, children, htmlElement);
+    const window = new Window(rootPath, children, htmlElement);
+    setUpParent(window, null);
+    return window;
   }
 }
 
@@ -67,4 +73,14 @@ function createContent(children) {
     content.appendChild(child.htmlElement); 
   }
   return content;
+}
+
+function setUpParent(window, parent) {
+  window.parent = parent;
+  if (window.children && window.children.length > 0) {
+    for (const child of window.children) {
+      setUpParent(child, window);
+    }
+  }
+  return window;
 }

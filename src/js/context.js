@@ -8,6 +8,7 @@ export class Context {
     this.zoomer = new Zoomer(config.zoomSpeedMs);
     this.zoomer.activateZoom(this);
     initContextUi(this);
+    this.scrollPosition = {scrollX: 0, scrollY: 0};
   }
 
   reset(newCurrentWindow) {
@@ -36,7 +37,7 @@ export class Context {
 
         }
       }
-    }  
+    }
   }
 
   rollBackContext(windowName) {
@@ -47,12 +48,20 @@ export class Context {
       this.zoomer.zoomOut(this);
       removeLastContextPath();
     }
+    if (this.path.length === 1) {
+      this.scrollPosition = {scrollX: 0, scrollY: 0};
+    }
   }
 
   getScale() {
     return this.path.reduce(({scaleX, scaleY}, value) =>
     ({scaleX: scaleX * value.nbColumns, scaleY: scaleY * value.nbLines}),
     {scaleX: 1, scaleY: 1});
+  }
+
+  getPosition() {
+    const columnNumber = 1;
+    
   }
 }
 
