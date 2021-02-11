@@ -14,7 +14,7 @@ export class Zoomer {
       const onZoom = () => {
         if (context.path.map(({name}) => name).indexOf(zoomable.name) === -1) {
 
-          const scale = container.clientWidth / zoomable.htmlElement.clientWidth;
+          const scale = container.clientHeight / zoomable.htmlElement.clientHeight;
           const [coordX, coordY] = computeCoords(zoomable.htmlElement);
           this.scroller.scrollTo(coordX, coordY, true, scale);
           
@@ -31,7 +31,10 @@ export class Zoomer {
 
   zoomOut(context) {
     const container = document.getElementById("display-container");
-    const scale = container.clientWidth / context.currentWindow.htmlElement.clientWidth;
+    let scale = container.clientHeight / context.currentWindow.htmlElement.clientHeight;
+    if (context.currentWindow.name === "home") {
+      scale = 1;
+    }
     const [coordX, coordY] = computeCoords(context.currentWindow.htmlElement);
     this.scroller.scrollTo(coordX, coordY, true, scale);
   }

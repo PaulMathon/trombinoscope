@@ -11,10 +11,8 @@ function createWindow(data, criterias, paths, rootPath) {
 
   if (paths.length === 0) {
     const children = createCards(data);
-    return new Window(rootPath,
-      children,
-      buildWindowUi(children, rootPath)
-    );
+    return new Window(rootPath, children,
+      buildWindowUi(children, rootPath));
   }
   else {
     const path = paths[0];
@@ -35,7 +33,6 @@ function createWindow(data, criterias, paths, rootPath) {
     }
     const htmlElement = buildWindowUi(children, rootPath);
     const window = new Window(rootPath, children, htmlElement);
-    setUpParent(window, null);
     return window;
   }
 }
@@ -51,6 +48,7 @@ function buildWindowUi(children, containerName) {
   if (containerName && containerName !== "home") {
     let title = document.createElement("p");
     title.innerHTML = containerName;
+    title.classList.add("window-title");
     container.appendChild(title);
   }
   const content = createContent(children);
@@ -86,19 +84,15 @@ function createContent(children) {
   return content;
 }
 
-function setUpParent(window, parent) {
-  window.parent = parent;
-  if (window.children && window.children.length > 0) {
-    for (const child of window.children) {
-      setUpParent(child, window);
-    }
-  }
-  return window;
-}
-
 function normalizeString(string) {
   return string.toLowerCase()
     .replace(" ", "-")
     .replace("ç", "c")
-    .replace("é", "e");
+    .replace("ï", "i")
+    .replace("î", "i")
+    .replace("â", "a")
+    .replace("à", "a")
+    .replace("é", "e")
+    .replace("è", "e")
+    .replace("ê", "e");
 }
