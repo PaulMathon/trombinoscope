@@ -12,12 +12,15 @@ export class Window {
     const contentElement = htmlElement.querySelector(".overview");
     if (contentElement) {
       let gridTemplateColumns = "";
+      const percentColumns = Math.round(1/this.nbColumns*100, 2);
+
       for (let i=0; i < this.nbColumns; i++) {
-        gridTemplateColumns += "1fr ";
+        gridTemplateColumns += `${percentColumns}% `;
       }
       let gridTemplateRows = "";
+      const percentRows = Math.round(1/this.nbLines*100, 1);
       for (let i=0; i < this.nbLines; i++) {
-        gridTemplateRows += "1fr ";
+        gridTemplateRows += `${percentRows}% `;
       }
       contentElement.style["grid-template-columns"] = gridTemplateColumns;
       contentElement.style["grid-template-rows"] = gridTemplateRows;

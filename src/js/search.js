@@ -21,8 +21,7 @@ function onSearch(data, criterias) {
     const newData = filterData(data, params);
 
     createDisplay(newData, criterias, config.defaultPath);
-  }
-
+  };
 }
 
 function initDatalist(categories, categoryName) {

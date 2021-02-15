@@ -1,7 +1,7 @@
 import { PractitionerCard, Window } from "./window.js";
 
 export function createDisplay(data, criterias, paths) {
-  const window = createWindow(data, criterias, paths, "home", null);
+  const window1 = createWindow(data, criterias, paths, "home", null);
 
   const displayContent = document.getElementById("display-content");
   if (displayContent.children.length) {
@@ -9,8 +9,12 @@ export function createDisplay(data, criterias, paths) {
       displayContent.removeChild(child);
     }
   }
-  document.getElementById("display-content").appendChild(window.htmlElement);
-  return window;
+  document.getElementById("display-content").appendChild(window1.htmlElement);
+
+  const titles = document.querySelectorAll(".window-title");
+  titles.forEach((title) => window.fitText(title));
+  const minSize = autoSizeText();
+  return window1;
 }
 
 function createWindow(data, criterias, paths, rootPath) {
@@ -102,3 +106,25 @@ function normalizeString(string) {
     .replace("è", "e")
     .replace("ê", "e");
 }
+
+function autoSizeText() {
+  const elements = document.querySelectorAll('.window-title');
+  let minSize = parseInt(elements[0].style.fontSize.slice(0, -2));
+
+  if (elements.length < 0) {
+    return;
+  }
+  const resizeText = (el) => {
+    const newSize = parseInt(el.style.fontSize.slice(0, -2) - 1);
+    if (newSize < minSize) {
+      minSize = newSize;
+    }
+    el.style.fontSize = `${newSize}px`;
+  };
+  elements.forEach((el) => {
+    while (el.scrollHeight > el.offsetHeight) {
+      resizeText(el);
+    }
+  });
+  return minSize;
+};
