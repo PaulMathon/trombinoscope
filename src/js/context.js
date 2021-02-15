@@ -66,10 +66,16 @@ function initContextUi(context) {
 function addContextPath(context, window) {
   const contextContainer = document.getElementById("context-container");
 
+  const separator = document.createElement("p");
+  separator.innerText = " ᐅ ";
+  separator.style.marginLeft = "1%";
+  separator.style.marginBottom = "0";
+  contextContainer.appendChild(separator);
+
   const newContextPath = document.createElement("p");
   newContextPath.id = window.name;
   newContextPath.classList.add("path-btn");
-  newContextPath.innerText = `| ${window.name}`;
+  newContextPath.innerText = `${window.name}`;
   newContextPath.style.marginLeft = "1%";
   newContextPath.addEventListener("click", (event) => {
     context.rollBackContext(event.target.id);
