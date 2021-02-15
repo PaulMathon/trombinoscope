@@ -61,7 +61,7 @@ function buildWindowUi(children, containerName) {
     title.classList.add("window-title");
     container.appendChild(title);
   } else {
-    content.style.marginTop = "5%";
+    content.style.marginTop = "3%";
   }
   container.appendChild(content);
 

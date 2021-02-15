@@ -13,40 +13,45 @@
   <script src="./js/lib/tingle.min.js"></script>
 </head>
 <body>
-  <div id="search-bar">
-    <form action="submit">
-      <div>
-        <input type="text" name="search-name" id="search-name" placeholder="Nom du praticien">
+  <div id="main-container">
+    <div id="map-container">
+      <div id="disposition-container">
+        <button id="speciality-btn">Spécialité</button>
+        <button id="city-btn">Ville</button>
+        <button id="cabinet-btn">Cabinet</button>
       </div>
-      <div>
-        <input type="text" id="input-speciality" name="combo-spe" list="search-speciality" placeholder="Spécialité">
-        <datalist id="search-speciality"></datalist>
+    
+      <div id="context-container">
+        <p id="home" class="path-btn">Home</p>
       </div>
-      <div>
-        <input type="text" id="input-cabinet" name="combo-cab" list="search-cabinet" placeholder="Cabinet">
-        <datalist id="search-cabinet"></datalist>
+    
+      <div id="display-container">
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div id="display-content"></div>
       </div>
-      <div>
-        <input type="text" id="input-city" name="combo-city" list="search-city" placeholder="Ville">
-        <datalist id="search-city"></datalist>
-      </div>
-      <button type="button" id="search-btn">Rechercher</button>
-    </form>
-  </div>
+    </div>
 
-  <div id="disposition-container">
-    <button id="speciality-btn">Spécialité</button>
-    <button id="city-btn">Ville</button>
-    <button id="cabinet-btn">Cabinet</button>
-  </div>
-
-  <div id="context-container">
-    <p id="home" class="path-btn">Home</p>
-  </div>
-
-  <div id="display-container">
-    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    <div id="display-content"></div>
+    <div id="search-bar">
+      <form action="submit">
+        <h2>Rechercher</h2>
+        <div>
+          <input type="text" name="search-name" id="search-name" placeholder="Nom du praticien">
+        </div>
+        <div>
+          <input type="text" id="input-speciality" name="combo-spe" list="search-speciality" placeholder="Spécialité">
+          <datalist id="search-speciality"></datalist>
+        </div>
+        <div>
+          <input type="text" id="input-cabinet" name="combo-cab" list="search-cabinet" placeholder="Cabinet">
+          <datalist id="search-cabinet"></datalist>
+        </div>
+        <div>
+          <input type="text" id="input-city" name="combo-city" list="search-city" placeholder="Ville">
+          <datalist id="search-city"></datalist>
+        </div>
+        <button type="button" id="search-btn">Rechercher</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
