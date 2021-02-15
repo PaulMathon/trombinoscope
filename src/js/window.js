@@ -1,3 +1,5 @@
+import { createContent } from "./modal.js";
+
 export class Window {
 
   constructor(name, children, htmlElement) {
@@ -42,6 +44,28 @@ export class PractitionerCard {
   constructor({name, lastname, specialities, cabinets, telephones}, htmlElement) {
     this.practitioner = new Practitioner(name, lastname, specialities, cabinets, telephones);
     this.htmlElement = htmlElement;
+
+    this.htmlElement.addEventListener("click", this.openModal());
+  }
+
+  openModal() {
+    return () => {
+      var modal = new tingle.modal({
+        footer: false,
+        stickyFooter: false,
+        closeMethods: ['overlay', 'button', 'escape'],
+        closeLabel: "Close",
+        beforeClose: function() {
+          return true;
+        }
+      });
+
+      // set content
+      modal.setContent(createContent(this.practitioner));
+
+      // open modal
+      modal.open();
+    };
   }
 }
 

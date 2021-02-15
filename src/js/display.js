@@ -12,7 +12,7 @@ export function createDisplay(data, criterias, paths) {
   document.getElementById("display-content").appendChild(mainWindow.htmlElement);
 
   optimizeTextSize();
-  
+
   return mainWindow;
 }
 
@@ -68,7 +68,7 @@ function buildWindowUi(children, containerName) {
   return container;
 }
 
-function buidPractitionerCardUi(practitioner) {
+export function buidPractitionerCardUi(practitioner) {
   const img = new Image();
   let tryCount = 1;
   const name = normalizeString(practitioner.name);
