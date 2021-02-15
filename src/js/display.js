@@ -1,7 +1,7 @@
 import { PractitionerCard, Window } from "./window.js";
 
 export function createDisplay(data, criterias, paths) {
-  const window1 = createWindow(data, criterias, paths, "home", null);
+  const mainWindow = createWindow(data, criterias, paths, "home", null);
 
   const displayContent = document.getElementById("display-content");
   if (displayContent.children.length) {
@@ -9,12 +9,11 @@ export function createDisplay(data, criterias, paths) {
       displayContent.removeChild(child);
     }
   }
-  document.getElementById("display-content").appendChild(window1.htmlElement);
+  document.getElementById("display-content").appendChild(mainWindow.htmlElement);
 
-  const titles = document.querySelectorAll(".window-title");
-  titles.forEach((title) => window.fitText(title));
-  const minSize = autoSizeText();
-  return window1;
+  optimizeTextSize();
+  
+  return mainWindow;
 }
 
 function createWindow(data, criterias, paths, rootPath) {
@@ -109,7 +108,19 @@ function normalizeString(string) {
     .replace("ê", "e");
 }
 
-function autoSizeText() {
+function optimizeTextSize() {
+  const titles = document.querySelectorAll(".window-title");
+  titles.forEach((title) => window.fitText(title));
+  adaptSizeToContent();
+
+  window.addEventListener("resize", (event) => {
+    setTimeout(() => {
+      optimizeTextSize();
+    }, 10);
+  });
+}
+
+function adaptSizeToContent() {
   const elements = document.querySelectorAll('.window-title');
   let minSize = parseInt(elements[0].style.fontSize.slice(0, -2));
 
