@@ -8,6 +8,7 @@ import { initSearchUi } from "./js/search.js";
 function main() {
   fetchPractitioners(config.dataUrl)
     .then((data) => {
+      document.querySelector(".lds-roller").style.display = "none";
       const criterias = getCriterias(data);
       const window = createDisplay(data, criterias, config.defaultPath);
       const context = new Context(config, window)
