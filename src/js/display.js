@@ -55,13 +55,15 @@ function createCards(data) {
 function buildWindowUi(children, containerName) {
   let container = document.createElement("div");
   container.classList.add("window");
+  const content = createContent(children);
   if (containerName && containerName !== "home") {
     let title = document.createElement("p");
     title.innerHTML = containerName;
     title.classList.add("window-title");
     container.appendChild(title);
+  } else {
+    content.style.marginTop = "5%";
   }
-  const content = createContent(children);
   container.appendChild(content);
 
   return container;

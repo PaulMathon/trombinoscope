@@ -12,13 +12,13 @@ export class Window {
     const contentElement = htmlElement.querySelector(".overview");
     if (contentElement) {
       let gridTemplateColumns = "";
-      const percentColumns = Math.round(1/this.nbColumns*100, 2);
+      const percentColumns = Math.round(100/this.nbColumns, 2);
 
       for (let i=0; i < this.nbColumns; i++) {
         gridTemplateColumns += `${percentColumns}% `;
       }
       let gridTemplateRows = "";
-      const percentRows = Math.round(1/this.nbLines*100, 1);
+      const percentRows = Math.round(100/this.nbLines, 1);
       for (let i=0; i < this.nbLines; i++) {
         gridTemplateRows += `${percentRows}% `;
       }
