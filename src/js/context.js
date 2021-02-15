@@ -69,7 +69,7 @@ function addContextPath(context, window) {
   const newContextPath = document.createElement("p");
   newContextPath.id = window.name;
   newContextPath.classList.add("path-btn");
-  newContextPath.innerText = `${window.name} >`;
+  newContextPath.innerText = `| ${window.name}`;
   newContextPath.style.marginLeft = "1%";
   newContextPath.addEventListener("click", (event) => {
     context.rollBackContext(event.target.id);
