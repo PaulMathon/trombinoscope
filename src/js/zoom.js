@@ -1,5 +1,3 @@
-import { PractitionerCard } from "./window.js";
-
 export class Zoomer {
 
   constructor(zoomSpeedMs) {
@@ -8,39 +6,14 @@ export class Zoomer {
     this.zoomSpeedMs = zoomSpeedMs;
   }
 
-  activateZoom(context) {
-    const container = document.getElementById("display-container");
-    const zoomables = context.currentWindow.children;
-    zoomables.forEach((zoomable) => {
-      const onZoom = () => {
-        if (context.path.map(({name}) => name).indexOf(zoomable.name) === -1 &&
-        !(zoomable instanceof PractitionerCard)) {
-
-          let scale = container.clientWidth / zoomable.htmlElement.clientWidth;
-          if (zoomable.htmlElement.clientHeight * scale > container.clientHeight) {
-            scale = container.clientHeight / zoomable.htmlElement.clientHeight;
-          }
-          const [coordX, coordY] = computeCoords(zoomable.htmlElement);
-          this.scroller.scrollTo(coordX, coordY, true, scale);
-
-          context.update(zoomable);
-        } 
-      };
-      
-      zoomable.htmlElement.addEventListener("click", onZoom);
-    }); 
-  }
-
-  deactivateZoom(context) {
-    const container = document.getElementById("display-container");
-    const zoomables = context.currentWindow.children;
-    zoomables.forEach((zoomable) => {
-      zoomable.htmlElement.addEventListener("click", () => {});
-    });
-  }
-
   zoomIn(window) {
-
+    const container = document.getElementById("display-container");
+    let scale = container.clientWidth / window.htmlElement.clientWidth;
+    if (window.htmlElement.clientHeight * scale > container.clientHeight) {
+      scale = container.clientHeight / window.htmlElement.clientHeight;
+    }
+    const [coordX, coordY] = computeCoords(window.htmlElement);
+    this.scroller.scrollTo(coordX, coordY, true, scale);
   }
 
   zoomOut(context) {

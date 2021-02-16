@@ -1,4 +1,5 @@
 import { Zoomer } from "./zoom.js";
+import { PractitionerCard } from "./window.js";
 
 export class Context {
 
@@ -6,7 +7,7 @@ export class Context {
     this.path = [window];
     this.currentWindow = window;
     this.zoomer = new Zoomer(config.zoomSpeedMs);
-    this.zoomer.activateZoom(this);
+    this.activateZoom();
     initContextUi(this);
     this.scrollPosition = {scrollX: 0, scrollY: 0};
   }
@@ -14,7 +15,7 @@ export class Context {
   reset(newCurrentWindow) {
     this.path[this.path.length - 1] = newCurrentWindow;
     this.currentWindow = newCurrentWindow;
-    this.zoomer.activateZoom(this);
+    this.activateZoom();
     initContextUi(this);
   }
 
@@ -23,7 +24,7 @@ export class Context {
     if (childrenName.indexOf(window.name) !== -1) {
       this.path.push(window);
       this.currentWindow = window;
-      this.zoomer.activateZoom(this);
+      this.activateZoom();
       addContextPath(this, window);
     }
     else {
@@ -42,6 +43,20 @@ export class Context {
     if (this.path.length === 1) {
       this.scrollPosition = {scrollX: 0, scrollY: 0};
     }
+  }
+
+  activateZoom() {
+    console.log("ACTIVATE WINDOW", this.currentWindow);
+    this.currentWindow.children.forEach((zoomable) => {
+      const onZoom = () => {
+        if (this.path.map(({name}) => name).indexOf(zoomable.name) === -1 &&
+        !(zoomable instanceof PractitionerCard)) {
+          this.zoomer.zoomIn(zoomable);
+          this.update(zoomable);
+        }
+      };
+      zoomable.htmlElement.addEventListener("click", onZoom);
+    });
   }
 }
 
