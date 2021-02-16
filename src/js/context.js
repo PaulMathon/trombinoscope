@@ -19,24 +19,15 @@ export class Context {
   }
 
   update(window) {
-    if (this.currentWindow.children.map(({name}) => name).indexOf(window.name) !== -1) {
+    const childrenName = this.currentWindow.children.map(({name}) => name);
+    if (childrenName.indexOf(window.name) !== -1) {
       this.path.push(window);
       this.currentWindow = window;
       this.zoomer.activateZoom(this);
       addContextPath(this, window);
     }
     else {
-      while (this.path.length > 0) {
-        const parent = this.path.pop();
-        removeLastContextPath();
-
-        if (parent === window) {
-          return;
-        }
-        else if (parent) {
-
-        }
-      }
+      this.update(this.path.pop());
     }
   }
 
@@ -86,5 +77,6 @@ function addContextPath(context, window) {
 
 function removeLastContextPath() {
   const contextContainer = document.getElementById("context-container");
+  contextContainer.lastChild.remove();
   contextContainer.lastChild.remove();
 }

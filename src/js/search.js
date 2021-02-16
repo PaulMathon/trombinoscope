@@ -1,26 +1,43 @@
 import { createDisplay } from "./display.js";
 import { config } from "./config.js";
 
-export function initSearchUi(data, criterias) {
+export function initSearchUi(context, data, criterias) {
   initDatalist(criterias.specialities, "speciality");
   initDatalist(criterias.cabinets, "cabinet");
   initDatalist(criterias.cities, "city");
 
-  document.getElementById("search-btn").addEventListener("click", onSearch(data, criterias));
+  document.getElementById("search-btn")
+    .addEventListener("click", onSearch(context, data, criterias));
 }
 
-function onSearch(data, criterias) {
-  return () => {
+function onSearch(context, data, criterias) {
+  return (event) => {
+    event.preventDefault();
     const params = {
       name: document.getElementById("search-name").value,
-      speciality: document.getElementById("input-speciality").value,
-      cabinet: document.getElementById("input-cabinet").value,
-      city: document.getElementById("input-city").value,
+      specialities: document.getElementById("input-speciality").value,
+      cabinets: document.getElementById("input-cabinet").value,
+      cities: document.getElementById("input-city").value,
     };
     
+    // Filter on name
     const newData = filterData(data, params);
 
-    createDisplay(newData, criterias, config.defaultPath);
+    // Manage disposition
+    const newPath = getNewPath(params);
+
+    // Create new window with new data and disposition
+    const newWindow = createDisplay(newData, criterias, newPath);
+
+    const nbParams = countParams(params);
+    context.reset(newWindow);
+    for (let i=0; i<nbParams; i++) {
+      const criteria = newPath.shift();
+
+      const criteriaWindow = newWindow.children
+        .filter((child) => child.name === params[criteria])[0];
+      // context.update(criteriaWindow);
+    }
   };
 }
 
@@ -40,12 +57,49 @@ function filterData(data, params) {
       !practitioner.lastname.toLowerCase().includes(params.name)) {
       return false;
     }
-    if (params.speciality && practitioner.specialities.indexOf(params.speciality) === -1) {
+    if (params.specialities && practitioner.specialities.indexOf(params.specialities) === -1) {
       return false;
     }
-    if (params.cabinet && practitioner.cabinets.map(({name}) => name).indexOf(params.cabinet) === -1) {
+    if (params.cabinets && practitioner.cabinets.map(({name}) => name).indexOf(params.cabinets) === -1) {
       return false;
     }
     return true;
   });
+}
+
+function getNewPath(params) {
+  // search: spe, cabinet, ville -> ["specialities", "ville", "cabinets"]
+  if (params.specialities && params.cabinets && params.cities) {
+    return ["specialities", "cities", "cabinets"];
+  }
+  // search: spe, cabinet -> ["specialities", "cabinets"]
+  else if (params.specialities && params.cabinets) {
+    return ["specialities", "cabinets"];
+  }
+  // search: spe, ville -> ["specialities", "cities"]
+  else if (params.specialities && params.cities) {
+    return ["specialities", "cities"];
+  }
+  // search: cabinet, ville -> ["cabinets", "cities"]
+  else if (params.cabinets && params.cities) {
+    return ["cities", "cabinets"];
+  }
+  // search: spe -> ["specialities", "cabinets"]
+  else if (params.specialities) {
+    return ["specialities", "cabinets"];
+  }
+  // search: cabinet -> ["cabinets", "specialities"]
+  else if (params.cabinets) {
+    return ["cabinets", "specialities"];
+  }
+  // search: ville -> ["specialities", "cabinets"]
+  else if (params.cities) {
+    return ["cities", "specialities"];
+  }
+  return config.defaultPath;
+}
+
+function countParams(params) {
+  return Object.entries(params).reduce((previousValue, [key, value]) =>
+    previousValue + ((key !== "name" && value) ? 1 : 0), 0);
 }

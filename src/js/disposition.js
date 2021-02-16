@@ -1,6 +1,6 @@
 import { createDisplay } from "./display.js";
 
-export function manageDisposition(data, context, criterias) {
+export function manageDisposition(context, data, criterias) {
   function onChangeDisposition(newDisposition) {
     return (event) => {
       

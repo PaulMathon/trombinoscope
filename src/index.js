@@ -11,9 +11,9 @@ function main() {
       document.querySelector(".lds-roller").style.display = "none";
       const criterias = getCriterias(data);
       const window = createDisplay(data, criterias, config.defaultPath);
-      const context = new Context(config, window)
-      manageDisposition(data, context, criterias);
-      initSearchUi(data, criterias);
+      const context = new Context(config, window);
+      manageDisposition(context, data, criterias);
+      initSearchUi(context, data, criterias);
     });
 }
 
