@@ -149,6 +149,14 @@ html, body {
   height: 100%;
 }
 
+#error-message {
+  margin: auto;
+  text-align: center;
+  height: 10%;
+  position: relative;
+  top: 45%;
+}
+
 .window-title {
   font-size: 80%;
   width: 90%;

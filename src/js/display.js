@@ -1,19 +1,31 @@
 import { PractitionerCard, Window } from "./window.js";
 
 export function createDisplay(data, criterias, paths) {
-  const mainWindow = createWindow(data, criterias, paths, "home", null);
 
   const displayContent = document.getElementById("display-content");
-  if (displayContent.children.length) {
-    for (const child of displayContent.children) {
-      displayContent.removeChild(child);
+  emptyContent(displayContent);
+
+  if (data.length > 0) {
+    const mainWindow = createWindow(data, criterias, paths, "home", null);
+    document.getElementById("display-content").appendChild(mainWindow.htmlElement);
+
+    optimizeTextSize();
+    return mainWindow;
+  }
+  else {
+    const errorMessage = document.createElement("p");
+    errorMessage.id = "error-message";
+    errorMessage.innerText = "Aucun praticien ne correspond à votre recherche...";
+    displayContent.appendChild(errorMessage);
+  }
+}
+
+function emptyContent(container) {
+  if (container.children.length) {
+    for (const child of container.children) {
+      container.removeChild(child);
     }
   }
-  document.getElementById("display-content").appendChild(mainWindow.htmlElement);
-
-  optimizeTextSize();
-
-  return mainWindow;
 }
 
 function createWindow(data, criterias, paths, rootPath) {
