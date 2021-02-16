@@ -24,6 +24,7 @@ export class Context {
     if (childrenName.indexOf(window.name) !== -1) {
       this.path.push(window);
       this.currentWindow = window;
+      this.zoomer.zoomIn(window);
       this.activateZoom();
       addContextPath(this, window);
     }
@@ -51,7 +52,6 @@ export class Context {
       const onZoom = () => {
         if (this.path.map(({name}) => name).indexOf(zoomable.name) === -1 &&
         !(zoomable instanceof PractitionerCard)) {
-          this.zoomer.zoomIn(zoomable);
           this.update(zoomable);
         }
       };
