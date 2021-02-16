@@ -47,7 +47,6 @@ export class Context {
   }
 
   activateZoom() {
-    console.log("ACTIVATE WINDOW", this.currentWindow);
     this.currentWindow.children.forEach((zoomable) => {
       const onZoom = () => {
         if (this.path.map(({name}) => name).indexOf(zoomable.name) === -1 &&
@@ -62,6 +61,9 @@ export class Context {
 
 function initContextUi(context) {
   const contextContainer = document.getElementById("context-container");
+  while (contextContainer.children.length > 1) {
+    contextContainer.lastChild.remove();
+  }
   contextContainer.childNodes.forEach((child) => {
     child.addEventListener("click", (event) => {
       context.rollBackContext(event.target.id);

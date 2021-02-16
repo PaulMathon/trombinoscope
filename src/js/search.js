@@ -27,16 +27,18 @@ function onSearch(context, data, criterias) {
     const newPath = getNewPath(params);
 
     // Create new window with new data and disposition
-    const newWindow = createDisplay(newData, criterias, newPath);
-
-    const nbParams = countParams(params);
-    context.reset(newWindow);
-    for (let i=0; i<nbParams; i++) {
-      const criteria = newPath.shift();
-
-      const criteriaWindow = newWindow.children
-        .filter((child) => child.name === params[criteria])[0];
-      // context.update(criteriaWindow);
+    let newWindow = createDisplay(newData, criterias, newPath);
+    if (newWindow) {
+      const nbParams = countParams(params);
+      context.reset(newWindow);
+      for (let i=0; i<nbParams; i++) {
+        const criteria = newPath.shift();
+        newWindow = newWindow.children
+          .filter((child) => child.name === params[criteria])[0];
+        context.update(newWindow);
+      }
+    } else {
+      document.getElementById("display-content").style.transform = "scale(1)";
     }
   };
 }
@@ -61,6 +63,9 @@ function filterData(data, params) {
       return false;
     }
     if (params.cabinets && practitioner.cabinets.map(({name}) => name).indexOf(params.cabinets) === -1) {
+      return false;
+    }
+    if (params.cities && practitioner.cabinets.map(({city}) => city).indexOf(params.cities) === -1) {
       return false;
     }
     return true;

@@ -18,7 +18,6 @@ export class Zoomer {
 
   zoomOut(context) {
     const container = document.getElementById("display-container");
-    // let scale = container.clientHeight / context.currentWindow.htmlElement.clientHeight;
     let scale = container.clientWidth / context.currentWindow.htmlElement.clientWidth;
     if (context.currentWindow.name === "home") {
       scale = 1;
