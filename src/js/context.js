@@ -28,7 +28,7 @@ export class Context {
       this.activateZoom();
       addContextPath(this, window);
     }
-    else {
+    else if (this.path.length > 1) {
       this.update(this.path.pop());
     }
   }
