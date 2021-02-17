@@ -17,12 +17,25 @@ export function createContent(practitioner) {
   textContainer.appendChild(pLastName);
 
   const pSpeciliaties = document.createElement("p");
-  pSpeciliaties.innerText = `Spécialité: ${practitioner.specialities.reduce((prevValue, value) => prevValue += `${value}, `, "")}`;
+  pSpeciliaties.innerText = `Spécialité: ${practitioner.specialities
+    .reduce((prevValue, value, index) =>prevValue +=
+      `${value}${index+1 < practitioner.specialities.length ? " ● " : ""} `, "")
+  }`;
   textContainer.appendChild(pSpeciliaties);
 
   const pCabinets = document.createElement("p");
-  pCabinets.innerText = `Cabinets: ${practitioner.cabinets.reduce((prevValue, value) => prevValue += `${value.name}, `, "")}`;
+  pCabinets.innerText = `Cabinets: ${practitioner.cabinets
+    .reduce((prevValue, value, index) => prevValue +=
+    `${value.name}${index+1 < practitioner.cabinets.length ? " ● " : ""} `, "")
+  }`;
   textContainer.appendChild(pCabinets);
+
+  const pPhones = document.createElement("p");
+  pPhones.innerText = `Téléphones: ${practitioner.phones
+    .reduce((prevValue, value, index) => prevValue +=
+      `${value}${index+1 < practitioner.phones.length ? " ● " : ""}`, "")
+  }`;
+  textContainer.appendChild(pPhones);
   modalContainer.appendChild(textContainer);
 
   return modalContainer.outerHTML;

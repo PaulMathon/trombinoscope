@@ -41,8 +41,8 @@ export class Window {
 
 export class PractitionerCard {
 
-  constructor({name, lastname, specialities, cabinets, telephones}, htmlElement) {
-    this.practitioner = new Practitioner(name, lastname, specialities, cabinets, telephones);
+  constructor({name, lastname, specialities, cabinets, phones}, htmlElement) {
+    this.practitioner = new Practitioner(name, lastname, specialities, cabinets, phones);
     this.htmlElement = htmlElement;
 
     this.htmlElement.addEventListener("click", this.openModal());
@@ -70,12 +70,12 @@ export class PractitionerCard {
 }
 
 class Practitioner {
-  constructor(name, lastname, specialities, cabinets, telephones) {
+  constructor(name, lastname, specialities, cabinets, phones) {
     this.name = name;
     this.lastname = lastname;
     this.cabinets = cabinets;
     this.specialities = specialities;
-    this.telephones = telephones;
+    this.phones = phones;
   }
 }
 
