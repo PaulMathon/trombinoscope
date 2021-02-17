@@ -182,6 +182,7 @@ html, body {
 }
 
 .overview:hover {
+  cursor: zoom-in;
   background-color: rgb(245, 245, 245);
 }
 
