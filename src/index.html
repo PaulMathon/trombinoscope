@@ -16,6 +16,7 @@
   <div id="main-container">
     <div id="map-container">
       <div id="disposition-container">
+        <button id="none-btn">Aucune</button>
         <button id="speciality-btn">Spécialité</button>
         <button id="city-btn">Ville</button>
         <button id="cabinet-btn">Cabinet</button>
@@ -35,7 +36,8 @@
       <form id="search-form">
         <h2>Rechercher</h2>
         <div>
-          <input type="text" name="search-name" id="search-name" placeholder="Nom du praticien">
+          <input type="text" name="input-name" id="input-name" list="search-name" placeholder="Nom du praticien">
+          <datalist id="search-name"></datalist>
         </div>
         <div>
           <input type="text" id="input-speciality" name="combo-spe" list="search-speciality" placeholder="Spécialité">

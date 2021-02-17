@@ -83,17 +83,17 @@ function buildWindowUi(children, containerName) {
 export function buidPractitionerCardUi(practitioner) {
   const img = new Image();
   let tryCount = 1;
-  const name = normalizeString(practitioner.name);
-  const lastname = normalizeString(practitioner.lastname);
+  const firstName = normalizeString(practitioner.firstName);
+  const lastName = normalizeString(practitioner.lastName);
   img.onerror = () => {
     tryCount++;
     if (tryCount === 2) {
-      img.src = `../assets/praticiens/${lastname}_${name}.jpg`;
+      img.src = `../assets/praticiens/${firstName}_${lastName}.jpg`;
     } else {
       img.src = "../assets/praticiens/profile.jpeg";
     }
   };
-  img.src = `../assets/praticiens/${name}_${lastname}.jpg`;
+  img.src = `../assets/praticiens/${lastName}_${firstName}.jpg`;
   img.classList.add("practitioner-card");
   return img;
 }
@@ -152,4 +152,4 @@ function adaptSizeToContent() {
     }
   });
   return minSize;
-};
+}
