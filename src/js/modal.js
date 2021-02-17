@@ -9,12 +9,8 @@ export function createContent(practitioner) {
 
   const textContainer = document.createElement("div");
   const pName = document.createElement("p");
-  pName.innerText = `Prénom: ${practitioner.name}`;
+  pName.innerText = `Nom: ${practitioner.name}`;
   textContainer.appendChild(pName);
-
-  const pLastName = document.createElement("p");
-  pLastName.innerText = `Nom: ${practitioner.lastname}`;
-  textContainer.appendChild(pLastName);
 
   const pSpeciliaties = document.createElement("p");
   pSpeciliaties.innerText = `Spécialité: ${practitioner.specialities

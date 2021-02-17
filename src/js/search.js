@@ -55,8 +55,7 @@ function initDatalist(categories, categoryName) {
 
 function filterData(data, params) {
   return data.filter((practitioner) => {
-    if (params.name && !practitioner.name.toLowerCase().includes(params.name) &&
-      !practitioner.lastname.toLowerCase().includes(params.name)) {
+    if (params.name && !practitioner.name.toLowerCase().includes(params.name.toLowerCase())) {
       return false;
     }
     if (params.specialities && practitioner.specialities.indexOf(params.specialities) === -1) {

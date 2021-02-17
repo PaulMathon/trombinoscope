@@ -1,6 +1,20 @@
 export function fetchPractitioners(url) {
   return fetch(url)
-    .then((result) => result.json());
+    .then((result) => result.json())
+    .then((practitioners) => practitioners.map(
+      ({firstName, lastName, specialities, cabinets, phones}) =>
+      new Practitioner(firstName, lastName, specialities, cabinets, phones)));
+}
+
+class Practitioner {
+  constructor(firstName, lastName, specialities, cabinets, phones) {
+    this.name = `${firstName} ${lastName.toUpperCase()}`;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.cabinets = cabinets;
+    this.specialities = specialities;
+    this.phones = phones;
+  }
 }
 
 export function getCriterias(data) {

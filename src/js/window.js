@@ -41,8 +41,8 @@ export class Window {
 
 export class PractitionerCard {
 
-  constructor({name, lastname, specialities, cabinets, phones}, htmlElement) {
-    this.practitioner = new Practitioner(name, lastname, specialities, cabinets, phones);
+  constructor(practitioner, htmlElement) {
+    this.practitioner = practitioner;
     this.htmlElement = htmlElement;
 
     this.htmlElement.addEventListener("click", this.openModal());
@@ -66,16 +66,6 @@ export class PractitionerCard {
       // open modal
       modal.open();
     };
-  }
-}
-
-class Practitioner {
-  constructor(name, lastname, specialities, cabinets, phones) {
-    this.name = name;
-    this.lastname = lastname;
-    this.cabinets = cabinets;
-    this.specialities = specialities;
-    this.phones = phones;
   }
 }
 
