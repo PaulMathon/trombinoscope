@@ -2,6 +2,7 @@ import { createDisplay } from "./display.js";
 import { config } from "./config.js";
 
 export function initSearchUi(context, data, criterias) {
+  initDatalist(data.map(({name}) => name), "name");
   initDatalist(criterias.specialities, "speciality");
   initDatalist(criterias.cabinets, "cabinet");
   initDatalist(criterias.cities, "city");
@@ -14,7 +15,7 @@ function onSearch(context, data, criterias) {
   return (event) => {
     event.preventDefault();
     const params = {
-      name: document.getElementById("search-name").value,
+      name: document.getElementById("input-name").value,
       specialities: document.getElementById("input-speciality").value,
       cabinets: document.getElementById("input-cabinet").value,
       cities: document.getElementById("input-city").value,
