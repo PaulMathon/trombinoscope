@@ -131,6 +131,7 @@ html, body {
   background-color: #e0e0e0;
   border: 2px solid #7E78D2;
   color: #363636;
+  z-index: 2;
 }
 
 #disposition-container button:hover {

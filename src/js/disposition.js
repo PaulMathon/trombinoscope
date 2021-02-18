@@ -61,11 +61,13 @@ export class Disposition {
    */
   getNewDispositionPath(zoomLevel, criteria) {
     this.dispositionPath[zoomLevel] = criteria;
-    if (criteria === "cabinet") {
-      this.dispositionPath[1] = Disposition.Speciality;
-    }
-    else if (criteria === "speciality") {
-      this.dispositionPath[1] = Disposition.Cabinet;
+    if (zoomLevel === 0) {
+      if (criteria === Disposition.Speciality) {
+        this.dispositionPath[1] = Disposition.Cabinet;
+      }
+      else {
+        this.dispositionPath[1] = Disposition.Speciality;
+      }
     }
     return this.dispositionPath;
   }
