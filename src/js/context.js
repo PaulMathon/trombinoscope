@@ -24,6 +24,10 @@ export class Context {
     return this.contextPath[this.contextPath.length - 1];
   }
 
+  getZoomLevel() {
+    return this.contextPath.length - 1;
+  }
+
   replaceCurrentWindow(window) {
     this.contextPath[this.contextPath.length - 1] = window;
   }
@@ -32,7 +36,7 @@ export class Context {
     if (this.contextPath.length > 1) {
       this.contextPath.pop();
       this.zoomer.zoomOut(this.getCurrentWindow());
-      this.disposition.adaptOptions(this.contextPath.length - 1);
+      this.disposition.adaptOptions(this.getZoomLevel());
       this.eventHandler.onZoom(this.getCurrentWindow());
       UI.removeLastContextPath();
     }
@@ -44,7 +48,7 @@ export class Context {
       this.contextPath.push(window);
       this.zoomer.zoomIn(window);
       this.eventHandler.onZoom(window);
-      this.disposition.adaptOptions(this.contextPath.length - 1);
+      this.disposition.adaptOptions(this.getZoomLevel());
       UI.addContextPath(window, this.eventHandler.onPreviousContext());
     }
   }
@@ -67,7 +71,7 @@ export class Context {
       const mainWindow = this.display.new(searchData, dispositionPath);
       this.replaceCurrentWindow(mainWindow);
       const windowPath = this.searchHandler.getWindowPath(mainWindow, dispositionPath, searchParams);
-      this.disposition.updateDispositionPath(dispositionPath);
+      this.disposition.updateDispositionPath(dispositionPath, this.getZoomLevel());
       // Wait before zoomOut finishes
       setTimeout(() => {
         for (const window of windowPath) {
@@ -94,9 +98,9 @@ export class Context {
   changeDisposition(criteria) {
     return () => {
       const newDispositonPath = this.disposition.getNewDispositionPath(
-        this.contextPath.length - 1, criteria
+        this.getZoomLevel(), criteria
       );
-      this.disposition.updateDispositionPath(newDispositonPath, this.contextPath.length - 1);
+      this.disposition.updateDispositionPath(newDispositonPath, this.getZoomLevel());
       const lastContextPath = this.contextPath;
       this.contextPath[0] = this.display.new(this.data, newDispositonPath);
       for (let i=1; i<lastContextPath.length; i++) {

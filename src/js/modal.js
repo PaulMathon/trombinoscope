@@ -1,4 +1,4 @@
-import { buidPractitionerCardUi } from "./display.js";
+import { buidPractitionerCardUi } from "./Display.js";
 
 export function createContent(practitioner) {
   const modalContainer = document.createElement("div");
