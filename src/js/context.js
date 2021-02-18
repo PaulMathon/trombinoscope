@@ -2,7 +2,7 @@ import { Display } from "./Display.js";
 import { Disposition } from "./Disposition.js";
 import { Zoomer } from "./Zoomer.js";
 import { SearchHandler } from "./SearchHandler.js";
-import { Utils } from "./utils.js";
+import { Utils } from "./Utils.js";
 import { EventHandler } from "./EventHandler.js";
 import { UI } from "./UI.js";
 
@@ -57,7 +57,7 @@ export class Context {
     return () => {
       const searchParams = this.searchHandler.getParams();
       // Filter on name
-      const searchData = this.searchHandler.filter(searchParams);
+      const searchData = this.searchHandler.filter(searchParams.name);
       const dispositionPath = this.searchHandler.getDispositionPath(searchParams);
       let previousTimeout = 0;
       while (this.contextPath.length > 1) {

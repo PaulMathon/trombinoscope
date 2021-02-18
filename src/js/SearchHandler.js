@@ -17,18 +17,9 @@ export class SearchHandler {
     return params;
   }
 
-  filter(params) {
+  filter(name) {
     return this.data.filter((practitioner) => {
-      if (params.name && !practitioner.name.toLowerCase().includes(params.name.toLowerCase())) {
-        return false;
-      }
-      if (params.specialities && practitioner.specialities.indexOf(params.specialities) === -1) {
-        return false;
-      }
-      if (params.cabinets && practitioner.cabinets.map(({name}) => name).indexOf(params.cabinets) === -1) {
-        return false;
-      }
-      if (params.cities && practitioner.cabinets.map(({city}) => city).indexOf(params.cities) === -1) {
+      if (name && !practitioner.name.toLowerCase().includes(name.toLowerCase())) {
         return false;
       }
       return true;
@@ -68,7 +59,9 @@ export class SearchHandler {
         name = name.toLowerCase(); 
         return (name === searchValue || name.includes(searchValue) || searchValue.includes(name));
       })[0];
-      windowPath.push(mainWindow);
+      if (mainWindow) {
+        windowPath.push(mainWindow);
+      }
     }
     return windowPath.slice(0, countParams(searchParams));
   }
