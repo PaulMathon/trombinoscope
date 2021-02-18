@@ -1,4 +1,4 @@
-import { createContent } from "./modal.js";
+import { createContent } from "../js/modal.js";
 
 export class Window {
 

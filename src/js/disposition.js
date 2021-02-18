@@ -1,51 +1,77 @@
-import { createDisplay } from "./display.js";
-import {config} from "./config.js";
+import { UI } from "./UI.js";
 
-export function manageDisposition(context, data, criterias) {
-  let currentDisposition=config.defaultPath;
-  function onChangeDisposition(criteria) {
-    return (event) => {
-      switchActiveButton(event.target);
-      currentDisposition = getDisposition(context.path, currentDisposition, criteria);
+export class Disposition {
 
-      const displayContainer = document.getElementById("display-content");
-      while (displayContainer.firstChild) {
-        displayContainer.removeChild(displayContainer.firstChild);
+  constructor(dispositionpPath) {
+    this.dispositionPath = dispositionpPath;
+    this.options = [
+      Disposition.None,
+      Disposition.Speciality,
+      Disposition.Cabinet,
+      Disposition.City,
+    ];
+  }
+
+  /**
+   * Adapt displayed buttons according to the context
+   */
+  adaptOptions(zoomLevel) {
+    let options = this.options;
+    if (zoomLevel === 1) {
+      const pastCriteria = this.dispositionPath[0];
+      switch (pastCriteria) {
+        case "speciality":
+          // remove speciality button
+          options = options.filter((option) => option !== Disposition.Speciality);
+          break;
+        case "cabinet":
+          // remove cabinet and city button
+          options = options.filter((option) =>
+            option !== Disposition.Cabinet && option !== Disposition.City
+          );
+          break;
+        case "city":
+          // remove city button
+          options = options.filter((option) => option !== Disposition.City);
+          break;
+        default:
+          break;
       }
-      const newCurrentWindow = createDisplay(data, criterias, currentDisposition);
-      context.reset(newCurrentWindow);
-    };
+    }
+    if (zoomLevel >= 2) {
+      // Everything except none button
+      options = options.filter((option) => option === Disposition.None);
+    }
+    UI.keepDispositionOptions(options);
+    UI.setDispositionFocus(this.dispositionPath[zoomLevel]);
   }
 
-  const specialityButton = document.getElementById("speciality-btn");
-  specialityButton.classList.add("active");
-
-  document.getElementById("none-btn").addEventListener("click",
-    onChangeDisposition([])
-  );
-  specialityButton.addEventListener("click",
-    onChangeDisposition("specialities")
-  );
-  specialityButton.classList.add("focus");
-  document.getElementById("city-btn").addEventListener("click",
-    onChangeDisposition("cities")
-  );
-  document.getElementById("cabinet-btn").addEventListener("click",
-    onChangeDisposition("cabinets")
-  );
-}
-
-function switchActiveButton(activeButton) {
-  const dispositionButtons = document.querySelectorAll("#disposition-container button");
-  dispositionButtons.forEach((button) => button.classList.remove("active"));
-  activeButton.classList.add("active");
-}
-
-function getDisposition(path, dispositionPath, criteria) {
-  const pastPath = dispositionPath.slice(0, path.length - 1);
-  let nextPath = pastPath.length >= 2 ? [] : [criteria];
-  if (pastPath.length === 0) {
-    nextPath.push(criteria === "specialities" ? "cabinets" : "specialities");
+  /**
+   * Set the right button to active
+   */
+  updateDispositionPath(dispositionPath, zoomLevel) {
+    this.dispositionPath = dispositionPath;
+    UI.switchActiveDispositionElement(dispositionPath[zoomLevel]);
   }
-  return pastPath.concat(nextPath);
+  
+  /**
+   * To improve
+   * @param {*} zoomLevel 
+   * @param {*} criteria 
+   */
+  getNewDispositionPath(zoomLevel, criteria) {
+    this.dispositionPath[zoomLevel] = criteria;
+    if (criteria === "cabinet") {
+      this.dispositionPath[1] = Disposition.Speciality;
+    }
+    else if (criteria === "speciality") {
+      this.dispositionPath[1] = Disposition.Cabinet;
+    }
+    return this.dispositionPath;
+  }
 }
+
+Disposition.None = "none";
+Disposition.Speciality = "speciality";
+Disposition.Cabinet = "cabinet";
+Disposition.City = "city";

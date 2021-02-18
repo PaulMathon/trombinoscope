@@ -1,22 +1,31 @@
-import { PractitionerCard, Window } from "./window.js";
+import { Window, PractitionerCard } from "./Window.js";
 
-export function createDisplay(data, criterias, paths) {
+export class Display {
 
-  const displayContent = document.getElementById("display-content");
-  emptyContent(displayContent);
-
-  if (data.length > 0) {
-    const mainWindow = createWindow(data, criterias, paths, "home", null);
-    document.getElementById("display-content").appendChild(mainWindow.htmlElement);
-
-    optimizeTextSize();
-    return mainWindow;
+  constructor(dispositionPath, criterias) {
+    this.dispositionPath = dispositionPath;
+    this.criterias = criterias;
   }
-  else {
-    const errorMessage = document.createElement("p");
-    errorMessage.id = "error-message";
-    errorMessage.innerText = "Aucun praticien ne correspond à votre recherche...";
-    displayContent.appendChild(errorMessage);
+
+  new(data, dispositionPath) {
+    this.dispositionPath = dispositionPath ? dispositionPath : this.dispositionPath;
+  
+    const displayContent = document.getElementById("display-content");
+    emptyContent(displayContent);
+
+    if (data.length > 0) {
+      const mainWindow = createWindow(data, this.criterias, this.dispositionPath, "home", null);
+      document.getElementById("display-content").appendChild(mainWindow.htmlElement);
+
+      optimizeTextSize();
+      return mainWindow;
+    }
+    else {
+      const errorMessage = document.createElement("p");
+      errorMessage.id = "error-message";
+      errorMessage.innerText = "Aucun praticien ne correspond à votre recherche...";
+      displayContent.appendChild(errorMessage);
+    }
   }
 }
 
@@ -28,29 +37,35 @@ function emptyContent(container) {
   }
 }
 
-function createWindow(data, criterias, paths, rootPath) {
+function createWindow(data, criterias, dispositionPath, rootPath) {
 
-  if (paths.length === 0) {
+  if (dispositionPath.length === 0) {
     const children = createCards(data);
     return new Window(rootPath, children,
       buildWindowUi(children, rootPath));
   }
   else {
-    const path = paths[0];
-    let children = [];
-    for (let criteria of criterias[path]) {
-      const newData = data.filter((practitioner) =>
-        (practitioner[path] &&
-        // Filter by speciality
-        (practitioner[path].indexOf(criteria) !== -1 ||
-        // Filter by cabinet
-        practitioner[path].map(({name}) => name).indexOf(criteria) !== -1)) ||
-        // Filter by city
-        practitioner.cabinets.map(({city}) => city).indexOf(criteria) !== -1
-      ); 
-      if (newData.length > 0) {
-        children.push(createWindow(newData, criterias, paths.slice(1, paths.length), criteria));
+    const dispositionEl = dispositionPath[0];
+    const practionerProperty = dispositionToPractitionerProperty(dispositionEl);
+    let children;
+    if (practionerProperty) {
+      children = [];
+      for (let criteria of criterias[dispositionEl]) {
+        const newData = data.filter((practitioner) =>
+          (practitioner[practionerProperty] &&
+          // Filter by speciality
+          (practitioner[practionerProperty].indexOf(criteria) !== -1 ||
+          // Filter by cabinet
+          practitioner[practionerProperty].map(({name}) => name).indexOf(criteria) !== -1)) ||
+          // Filter by city
+          practitioner.cabinets.map(({city}) => city).indexOf(criteria) !== -1
+        ); 
+        if (newData.length > 0) {
+          children.push(createWindow(newData, criterias, dispositionPath.slice(1, dispositionPath.length), criteria));
+        }
       }
+    } else {
+      children = createCards(data);
     }
     const htmlElement = buildWindowUi(children, rootPath);
     const window = new Window(rootPath, children, htmlElement);
@@ -132,13 +147,24 @@ function optimizeTextSize() {
   });
 }
 
+function dispositionToPractitionerProperty(criteria) {
+  switch (criteria) {
+    case "speciality":
+      return "specialities";
+    case "cabinet":
+      return "cabinets";
+    case "city":
+      return "cities";
+  }
+}
+
 function adaptSizeToContent() {
   const elements = document.querySelectorAll('.window-title');
-  let minSize = parseInt(elements[0].style.fontSize.slice(0, -2));
-
-  if (elements.length < 0) {
+  
+  if (elements.length <= 0) {
     return;
   }
+  let minSize = parseInt(elements[0].style.fontSize.slice(0, -2));
   const resizeText = (el) => {
     const newSize = parseInt(el.style.fontSize.slice(0, -2) - 1);
     if (newSize < minSize) {

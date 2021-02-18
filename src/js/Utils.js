@@ -1,29 +1,23 @@
-export function fetchPractitioners(url) {
+import { Practitioner } from "./Practitioner.js";
+
+export class Utils {
+}
+
+Utils.fetchPractitioners = function(url) {
   return fetch(url)
     .then((result) => result.json())
     .then((practitioners) => practitioners.map(
       ({firstName, lastName, specialities, cabinets, phones}) =>
       new Practitioner(firstName, lastName, specialities, cabinets, phones)));
-}
+};
 
-class Practitioner {
-  constructor(firstName, lastName, specialities, cabinets, phones) {
-    this.name = `${firstName} ${lastName.toUpperCase()}`;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.cabinets = cabinets;
-    this.specialities = specialities;
-    this.phones = phones;
-  }
-}
-
-export function getCriterias(data) {
+Utils.getCriterias = function(data) {
   return {
-    specialities: getSpecilitiesFromData(data),
-    cities: getCitiesFromData(data),
-    cabinets: getCabinetsFromData(data),
+    speciality: getSpecilitiesFromData(data),
+    city: getCitiesFromData(data),
+    cabinet: getCabinetsFromData(data),
   };
-}
+};
 
 function getSpecilitiesFromData(data) {
   let specialities = [];

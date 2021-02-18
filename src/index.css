@@ -58,7 +58,6 @@ html, body {
   height: 3em;
   width: 100%;
   border: none;
-  background-color: #E87461;
   border-radius: 0.2em;
   transition: all 300ms;
   font-size: 0.9em;
@@ -66,10 +65,28 @@ html, body {
   letter-spacing: 0.07em;
 }
 
+#search-bar form #search-btn {
+  background-color: #E87461;
+}
+
+#search-bar form #reset-search-btn {
+  visibility: hidden;
+  opacity: 0;
+  background-color: #9893DA;
+  transition: visibility 0, opacity 300ms;
+}
+
 #search-bar form button:hover {
   cursor: pointer;
-  background-color: #d66857;
   transform: scale(1.02);
+}
+
+#search-bar form #search-btn:hover {
+  background-color: #d66857;
+}
+
+#search-bar form #reset-search-btn:hover {
+  background-color: #8581be;
 }
 
 #map-container {
@@ -205,7 +222,8 @@ html, body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
+  opacity: 0.5;
+  border: 1px blue solid;
 }
 
 

@@ -16,13 +16,13 @@ export class Zoomer {
     this.scroller.scrollTo(coordX, coordY, true, scale);
   }
 
-  zoomOut(context) {
+  zoomOut(window) {
     const container = document.getElementById("display-container");
-    let scale = container.clientWidth / context.currentWindow.htmlElement.clientWidth;
-    if (context.currentWindow.name === "home") {
+    let scale = container.clientWidth / window.htmlElement.clientWidth;
+    if (window.name === "home") {
       scale = 1;
     }
-    const [coordX, coordY] = computeCoords(context.currentWindow.htmlElement);
+    const [coordX, coordY] = computeCoords(window.htmlElement);
     this.scroller.scrollTo(coordX, coordY, true, scale);
   }
 }

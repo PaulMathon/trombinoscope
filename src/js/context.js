@@ -1,99 +1,109 @@
-import { Zoomer } from "./zoom.js";
-import { PractitionerCard } from "./window.js";
+import { Display } from "./Display.js";
+import { Disposition } from "./Disposition.js";
+import { Zoomer } from "./Zoomer.js";
+import { SearchHandler } from "./SearchHandler.js";
+import { Utils } from "./utils.js";
+import { EventHandler } from "./EventHandler.js";
+import { UI } from "./UI.js";
 
 export class Context {
 
-  constructor(config, window) {
-    this.path = [window];
-    this.currentWindow = window;
+  constructor(config, data) {
+    this.config = config;
+    this.data = data;
+    this.criterias = Utils.getCriterias(data);
+    this.searchHandler = new SearchHandler(data);
+    this.display = new Display(config.defaultPath, this.criterias);
+    this.disposition = new Disposition(config.defaultPath);
     this.zoomer = new Zoomer(config.zoomSpeedMs);
-    this.activateZoom();
-    initContextUi(this);
-    this.scrollPosition = {scrollX: 0, scrollY: 0};
+    this.contextPath = [this.display.new(this.data)];
+    this.eventHandler = new EventHandler(this);
   }
 
-  reset(newCurrentWindow) {
-    this.path[this.path.length - 1] = newCurrentWindow;
-    this.currentWindow = newCurrentWindow;
-    this.activateZoom();
-    initContextUi(this);
+  getCurrentWindow() {
+    return this.contextPath[this.contextPath.length - 1];
   }
 
-  update(window) {
-    const childrenName = this.currentWindow.children.map(({name}) => name);
-    if (childrenName.indexOf(window.name) !== -1) {
-      this.path.push(window);
-      this.currentWindow = window;
+  replaceCurrentWindow(window) {
+    this.contextPath[this.contextPath.length - 1] = window;
+  }
+
+  previous() {
+    if (this.contextPath.length > 1) {
+      this.contextPath.pop();
+      this.zoomer.zoomOut(this.getCurrentWindow());
+      this.disposition.adaptOptions(this.contextPath.length - 1);
+      this.eventHandler.onZoom(this.getCurrentWindow());
+      UI.removeLastContextPath();
+    }
+  }
+
+  next(window) {
+    const childrenName = this.getCurrentWindow().children.map(({name}) => name);
+    if (this.getCurrentWindow().name !== window.name && childrenName.indexOf(window.name) !== -1) {
+      this.contextPath.push(window);
       this.zoomer.zoomIn(window);
-      this.activateZoom();
-      addContextPath(this, window);
-    }
-    else if (this.path.length > 1) {
-      this.update(this.path.pop());
+      this.eventHandler.onZoom(window);
+      this.disposition.adaptOptions(this.contextPath.length - 1);
+      UI.addContextPath(window, this.eventHandler.onPreviousContext());
     }
   }
 
-  rollBackContext(windowName) {
-    while (this.path.length > 0 &&
-      this.path[this.path.length - 1].name !== windowName) {
-      this.path.pop();
-      this.currentWindow = this.path[this.path.length - 1];
-      this.zoomer.zoomOut(this);
-      removeLastContextPath();
-    }
-    if (this.path.length === 1) {
-      this.scrollPosition = {scrollX: 0, scrollY: 0};
-    }
-  }
-
-  activateZoom() {
-    this.currentWindow.children.forEach((zoomable) => {
-      const onZoom = () => {
-        if (this.path.map(({name}) => name).indexOf(zoomable.name) === -1 &&
-        !(zoomable instanceof PractitionerCard)) {
-          this.update(zoomable);
+  onSearch() {
+    return () => {
+      const searchParams = this.searchHandler.getParams();
+      // Filter on name
+      const searchData = this.searchHandler.filter(searchParams);
+      const dispositionPath = this.searchHandler.getDispositionPath(searchParams);
+      let previousTimeout = 0;
+      while (this.contextPath.length > 1) {
+        this.previous();
+        previousTimeout += this.config.zoomSpeedMs;
+      }
+      if (!searchParams) {
+        this.display.new(this.data, dispositionPath);
+      }
+      UI.setResetSearchButtonVisibility(true);
+      const mainWindow = this.display.new(searchData, dispositionPath);
+      this.replaceCurrentWindow(mainWindow);
+      const windowPath = this.searchHandler.getWindowPath(mainWindow, dispositionPath, searchParams);
+      this.disposition.updateDispositionPath(dispositionPath);
+      // Wait before zoomOut finishes
+      setTimeout(() => {
+        for (const window of windowPath) {
+          this.next(window);
         }
-      };
-      zoomable.htmlElement.addEventListener("click", onZoom);
-    });
+      }, previousTimeout); 
+    };
   }
-}
 
-function initContextUi(context) {
-  const contextContainer = document.getElementById("context-container");
-  while (contextContainer.children.length > 1) {
-    contextContainer.lastChild.remove();
+  onResetSearch() {
+    return () => {
+      while (this.contextPath.length > 1) {
+        this.previous();
+      }
+      const homeWindow = this.display.new(this.data);
+      this.replaceCurrentWindow(homeWindow);
+      this.eventHandler.onZoom(homeWindow);
+      UI.setResetSearchButtonVisibility(false);
+      UI.emptySearchInputs(false);
+    };
   }
-  contextContainer.childNodes.forEach((child) => {
-    child.addEventListener("click", (event) => {
-      context.rollBackContext(event.target.id);
-    });
-  });
-}
 
-function addContextPath(context, window) {
-  const contextContainer = document.getElementById("context-container");
 
-  const separator = document.createElement("p");
-  separator.innerText = " ᐅ ";
-  separator.style.marginLeft = "1%";
-  separator.style.marginBottom = "0";
-  contextContainer.appendChild(separator);
-
-  const newContextPath = document.createElement("p");
-  newContextPath.id = window.name;
-  newContextPath.classList.add("path-btn");
-  newContextPath.innerText = `${window.name}`;
-  newContextPath.style.marginLeft = "1%";
-  newContextPath.addEventListener("click", (event) => {
-    context.rollBackContext(event.target.id);
-  });
-
-  contextContainer.appendChild(newContextPath);
-}
-
-function removeLastContextPath() {
-  const contextContainer = document.getElementById("context-container");
-  contextContainer.lastChild.remove();
-  contextContainer.lastChild.remove();
+  changeDisposition(criteria) {
+    return () => {
+      const newDispositonPath = this.disposition.getNewDispositionPath(
+        this.contextPath.length - 1, criteria
+      );
+      this.disposition.updateDispositionPath(newDispositonPath, this.contextPath.length - 1);
+      const lastContextPath = this.contextPath;
+      this.contextPath[0] = this.display.new(this.data, newDispositonPath);
+      for (let i=1; i<lastContextPath.length; i++) {
+        this.contextPath[i] = this.contextPath[i-1].children.filter(
+          ({name}) => lastContextPath[i].name === name)[0];
+      }
+      this.eventHandler.onZoom(this.getCurrentWindow());
+    };
+  }
 }
