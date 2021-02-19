@@ -69,6 +69,13 @@ export class EventHandler {
   }
 
   initSearchEvents() {
+
+    document.getElementById("search-form")
+      .addEventListener("submit", (event) => {
+        event.preventDefault();
+        return this.context.onSearch();
+      });
+
     document.getElementById("search-btn")
       .addEventListener("click", this.context.onSearch());
 
