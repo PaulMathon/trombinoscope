@@ -95,9 +95,7 @@ UI.initSearchDatalists = function(data, criterias) {
   Object.entries(criterias)
     .concat([["name", data.map(({name}) => name)]])
     .forEach(([criteria, categories]) => {
-      console.log(criteria, categories);
       const datalist = document.getElementById(`search-${criteria}`);
-      console.log(datalist)
       for (const category of categories) {
         const option = document.createElement("option");
         option.value = category;
