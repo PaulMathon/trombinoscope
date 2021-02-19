@@ -72,6 +72,7 @@ export class SearchHandler {
 }
 
 function countParams(params) {
-  return Object.entries(params).reduce((previousValue, [key, value]) =>
+  const count = Object.entries(params).reduce((previousValue, [key, value]) =>
     previousValue + ((key !== "name" && value) ? 1 : 0), 0);
+  return (count == 0 && params.name) ? 1 : count;
 }
