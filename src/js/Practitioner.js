@@ -1,6 +1,6 @@
 export class Practitioner {
   constructor(firstName, lastName, specialities, cabinets, phones) {
-    this.name = `${firstName} ${lastName.toUpperCase()}`;
+    this.name = `${lastName.toUpperCase()} ${firstName}`;
     this.firstName = firstName;
     this.lastName = lastName;
     this.cabinets = cabinets;

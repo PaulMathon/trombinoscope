@@ -93,8 +93,10 @@ UI.setDispositionFocus = function(optionToFocus) {
 };
 
 UI.initSearchDatalists = function(data, criterias) {
+  const names = data.map(({name}) => name)
+    .sort((a, b) => a < b ? -1 : 1);
   Object.entries(criterias)
-    .concat([["name", data.map(({name}) => name)]])
+    .concat([["name", names]])
     .forEach(([criteria, categories]) => {
       const datalist = document.getElementById(`search-${criteria}`);
       for (const category of categories) {

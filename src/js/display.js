@@ -105,7 +105,7 @@ export function buidPractitionerCardUi(practitioner) {
     if (tryCount === 2) {
       img.src = `../assets/praticiens/${firstName}_${lastName}.jpg`;
     } else {
-      img.src = "../assets/praticiens/profile.jpeg";
+      img.src = "../assets/praticiens/profile.png";
     }
   };
   img.src = `../assets/praticiens/${lastName}_${firstName}.jpg`;
