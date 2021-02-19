@@ -1,7 +1,10 @@
+import { UI } from "./UI.js";
+
 export class SearchHandler {
 
-  constructor(data) {
+  constructor(data, criterias) {
     this.data = data;
+    UI.initSearchDatalists(data, criterias);
   }
 
   getParams() {

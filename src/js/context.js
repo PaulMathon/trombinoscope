@@ -12,7 +12,7 @@ export class Context {
     this.config = config;
     this.data = data;
     this.criterias = Utils.getCriterias(data);
-    this.searchHandler = new SearchHandler(data);
+    this.searchHandler = new SearchHandler(data, this.criterias);
     this.display = new Display(config.defaultPath, this.criterias);
     this.disposition = new Disposition(config.defaultPath);
     this.zoomer = new Zoomer(config.zoomSpeedMs);
@@ -30,6 +30,7 @@ export class Context {
 
   replaceCurrentWindow(window) {
     this.contextPath[this.contextPath.length - 1] = window;
+    this.eventHandler.onZoom(window);
   }
 
   previous() {
@@ -74,6 +75,7 @@ export class Context {
       this.disposition.updateDispositionPath(dispositionPath, this.getZoomLevel());
       // Wait before zoomOut finishes
       setTimeout(() => {
+        this.replaceCurrentWindow(mainWindow);
         for (const window of windowPath) {
           this.next(window);
         }

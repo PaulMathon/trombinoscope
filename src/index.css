@@ -111,6 +111,8 @@ html, body {
   outline: none;
   transition: background-color 200ms;
   box-shadow: 0px 0px 6px 2px #e2e2e2;
+  transition: width 500ms;
+  overflow: hidden;
 }
 
 #disposition-container button:first-child {
@@ -132,6 +134,18 @@ html, body {
   border: 2px solid #7E78D2;
   color: #363636;
   z-index: 2;
+}
+
+#disposition-container button.visible {
+  padding: 0;
+  width: 10%;
+}
+
+#disposition-container button.hidden {
+  padding: 0;
+  width: 0;
+  border: none;
+  box-shadow: none;
 }
 
 #disposition-container button:hover {

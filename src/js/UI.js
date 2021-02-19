@@ -56,13 +56,24 @@ UI.emptySearchInputs = function() {
 };
 
 UI.keepDispositionOptions = function(optionsToKeep) {
-  [Disposition.Speciality, Disposition.Cabinet, Disposition.City].forEach((option) => {
+  let lastElement = document.getElementById(`${Disposition.None}-btn`);
+  lastElement.style["border-top-right-radius"] = 0;
+  lastElement.style["border-bottom-right-radius"] = 0;
+  [Disposition.Speciality, Disposition.City, Disposition.Cabinet].forEach((option) => {
+    const dispositionButton = document.getElementById(`${option}-btn`);
     if (optionsToKeep.indexOf(option) === -1) {
-      document.getElementById(`${option}-btn`).style.display = "none";
+      dispositionButton.classList.remove("visible");
+      dispositionButton.classList.add("hidden");
     } else {
-      document.getElementById(`${option}-btn`).style.display = "block";
+      lastElement = dispositionButton;
+      dispositionButton.classList.add("visible");
+      dispositionButton.classList.remove("hidden");
     }
+    dispositionButton.style["border-top-right-radius"] = 0;
+    dispositionButton.style["border-bottom-right-radius"] = 0;
   });
+  lastElement.style["border-top-right-radius"] = "0.3em";
+  lastElement.style["border-bottom-right-radius"] = "0.3em";
 };
 
 UI.setDispositionFocus = function(optionToFocus) {
@@ -78,4 +89,19 @@ UI.setDispositionFocus = function(optionToFocus) {
       optionButton.classList.remove("active");
     }
   });
+};
+
+UI.initSearchDatalists = function(data, criterias) {
+  Object.entries(criterias)
+    .concat([["name", data.map(({name}) => name)]])
+    .forEach(([criteria, categories]) => {
+      console.log(criteria, categories);
+      const datalist = document.getElementById(`search-${criteria}`);
+      console.log(datalist)
+      for (const category of categories) {
+        const option = document.createElement("option");
+        option.value = category;
+        datalist.appendChild(option);
+      }
+    });
 };
