@@ -1,4 +1,4 @@
-import { createContent } from "./modal.js";
+import { Modal } from "./Modal.js";
 
 export class Window {
 
@@ -46,6 +46,7 @@ export class PractitionerCard {
     this.htmlElement = htmlElement;
 
     this.htmlElement.addEventListener("click", this.openModal());
+    this.modal = new Modal();
   }
 
   openModal() {
@@ -61,7 +62,7 @@ export class PractitionerCard {
       });
 
       // set content
-      modal.setContent(createContent(this.practitioner));
+      modal.setContent(this.modal.new(this.practitioner));
 
       // open modal
       modal.open();

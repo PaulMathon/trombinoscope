@@ -1,38 +1,47 @@
 import { buidPractitionerCardUi } from "./Display.js";
 
-export function createContent(practitioner) {
-  const modalContainer = document.createElement("div");
-  modalContainer.classList.add("modal-container");
+export class Modal {
+  constructor() {}
 
-  const img = buidPractitionerCardUi(practitioner);
-  modalContainer.appendChild(img);
+  new(practitioner) {
+    const modalContainer = document.createElement("div");
+    modalContainer.classList.add("modal-container");
 
-  const textContainer = document.createElement("div");
-  const pName = document.createElement("p");
-  pName.innerText = `Nom: ${practitioner.name}`;
-  textContainer.appendChild(pName);
+    const img = buidPractitionerCardUi(practitioner);
+    modalContainer.appendChild(img);
 
-  const pSpeciliaties = document.createElement("p");
-  pSpeciliaties.innerText = `Spécialité: ${practitioner.specialities
-    .reduce((prevValue, value, index) =>prevValue +=
-      `${value}${index+1 < practitioner.specialities.length ? " ● " : ""} `, "")
-  }`;
-  textContainer.appendChild(pSpeciliaties);
+    const textContainer = document.createElement("div");
+    const pName = document.createElement("p");
+    pName.innerText = `Nom: ${practitioner.name}`;
+    textContainer.appendChild(pName);
 
-  const pCabinets = document.createElement("p");
-  pCabinets.innerText = `Cabinets: ${practitioner.cabinets
-    .reduce((prevValue, value, index) => prevValue +=
-    `${value.name}${index+1 < practitioner.cabinets.length ? " ● " : ""} `, "")
-  }`;
-  textContainer.appendChild(pCabinets);
+    const pSpeciliaties = document.createElement("p");
+    pSpeciliaties.innerText = `Spécialité: ${practitioner.specialities
+      .reduce((prevValue, value, index) =>prevValue +=
+        `${value}${index+1 < practitioner.specialities.length ? " ● " : ""} `, "")
+    }`;
+    textContainer.appendChild(pSpeciliaties);
 
-  const pPhones = document.createElement("p");
-  pPhones.innerText = `Téléphones: ${practitioner.phones
-    .reduce((prevValue, value, index) => prevValue +=
-      `${value}${index+1 < practitioner.phones.length ? " ● " : ""}`, "")
-  }`;
-  textContainer.appendChild(pPhones);
-  modalContainer.appendChild(textContainer);
+    const pCabinetTitle = document.createElement("p");
+    pCabinetTitle.innerText = "Cabinets:";
+    textContainer.appendChild(pCabinetTitle);
 
-  return modalContainer.outerHTML;
+    const cabinetList = document.createElement("ul");
+    practitioner.cabinets.forEach(({name, city, postalCode, address}) => {
+      const li = document.createElement("li");
+      li.innerText = `${name}: ${city}, ${postalCode}, ${address}`;
+      cabinetList.appendChild(li);
+    });
+    textContainer.appendChild(cabinetList);
+
+    const pPhones = document.createElement("p");
+    pPhones.innerText = `Téléphones: ${practitioner.phones
+      .reduce((prevValue, value, index) => prevValue +=
+        `${value}${index+1 < practitioner.phones.length ? " ● " : ""}`, "")
+    }`;
+    textContainer.appendChild(pPhones);
+    modalContainer.appendChild(textContainer);
+
+    return modalContainer.outerHTML;
+  }
 }
