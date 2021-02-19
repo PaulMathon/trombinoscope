@@ -14,6 +14,7 @@ export class SearchHandler {
       cabinet: document.getElementById("input-cabinet").value,
       city: document.getElementById("input-city").value,
     };
+    UI.emptySearchInputs();
     if (!params.name && !params.speciality && !params.cabinet && !params.city) {
       return false;
     }

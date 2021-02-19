@@ -65,10 +65,9 @@ export class Context {
         this.previous();
         previousTimeout += this.config.zoomSpeedMs;
       }
-      if (!searchParams) {
-        this.display.new(this.data, dispositionPath);
+      if (searchData.length < this.data.length) {
+        UI.setResetSearchButtonVisibility(true);
       }
-      UI.setResetSearchButtonVisibility(true);
       const mainWindow = this.display.new(searchData, dispositionPath);
       this.replaceCurrentWindow(mainWindow);
       const windowPath = this.searchHandler.getWindowPath(mainWindow, dispositionPath, searchParams);
@@ -92,7 +91,6 @@ export class Context {
       this.replaceCurrentWindow(homeWindow);
       this.eventHandler.onZoom(homeWindow);
       UI.setResetSearchButtonVisibility(false);
-      UI.emptySearchInputs(false);
     };
   }
 
