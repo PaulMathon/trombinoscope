@@ -77,10 +77,11 @@ UI.keepDispositionOptions = function(optionsToKeep) {
 };
 
 UI.setDispositionFocus = function(optionToFocus) {
-  [
+  optionToFocus = optionToFocus || Disposition.None;
+  ([
     Disposition.None, Disposition.Speciality,
     Disposition.Cabinet, Disposition.City
-  ].forEach((option) => {
+  ]).forEach((option) => {
     const optionButton = document.getElementById(`${option}-btn`);
     if (optionToFocus === option) {
       optionButton.classList.add("active");
