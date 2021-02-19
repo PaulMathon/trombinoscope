@@ -30,7 +30,9 @@ UI.removeLastContextPath = function() {
 
 UI.switchActiveDispositionElement = function(dispositionElement) {
   const newActiveButton = document.getElementById(`${dispositionElement}-btn`);
-  const dispositionButtons = document.querySelectorAll("#disposition-container button");
+  const dispositionButtons = document.querySelectorAll(
+    "#disposition-container #btn-container button"
+  );
   dispositionButtons.forEach((button) => button.classList.remove("active"));
   newActiveButton.classList.add("active");
 };
