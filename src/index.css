@@ -16,7 +16,7 @@ html, body {
 }
 
 #search-bar {
-  width: 30%;
+  width: 20%;
   height: 100%;
   background-color: #f1f1f1;
   box-shadow: 0px 0px 6px 3px #dddddd ;
@@ -32,7 +32,7 @@ html, body {
   flex-direction: column;
   height: 60%;
   margin: auto;
-  width: 50%;
+  width: 80%;
 }
 
 #search-bar form div {
@@ -90,21 +90,29 @@ html, body {
 }
 
 #map-container {
-  width: 70%;
+  width: 80%;
   height: 100%;
 }
 
-#disposition-container {
-  width: 100%;
-  height: 10%;
+#map-header {
+  height: 16%;
+  width: 90%;
+  margin: 0 5%;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: space-between;
+}
+
+#disposition-container {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   background-color: white;
 }
 
 #disposition-container button {
-  width: 10%;
+  width: 6em;
   height: 35%;
   background: none;
   border: none;
@@ -113,20 +121,20 @@ html, body {
   box-shadow: 0px 0px 6px 2px #e2e2e2;
   transition: width 500ms;
   overflow: hidden;
+  border-right: #cccccc solid 2px;
 }
 
 #disposition-container button:first-child {
   border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
-  border-right: #b9b9b9 solid 2px;
   box-shadow: -2px 0px 6px 2px #e2e2e2;
 }
 
 #disposition-container button:last-child {
   border-top-right-radius: 0.3em;
   border-bottom-right-radius: 0.3em;
-  border-left: #b9b9b9 solid 2px;
   box-shadow: 2px 0px 6px 2px #e2e2e2;
+  border-right: none;
 }
 
 #disposition-container button.active {
@@ -138,7 +146,7 @@ html, body {
 
 #disposition-container button.visible {
   padding: 0;
-  width: 10%;
+  width: 6em;
 }
 
 #disposition-container button.hidden {
@@ -156,15 +164,8 @@ html, body {
 #context-container {
   display: flex;
   align-items: center;
-  height: 10%;;
-}
-
-#context-container #home {
-  margin-left: 5%;
-}
-
-#context-container .path-btn {
-  margin-bottom: 0;
+  height: 100%;
+  width: inherit;
 }
 
 #context-container .path-btn:hover {
@@ -173,7 +174,7 @@ html, body {
 }
 
 #display-container {
-  height: 80%;
+  height: 84%;
   overflow: hidden;
 }
 

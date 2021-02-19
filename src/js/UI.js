@@ -10,7 +10,6 @@ UI.addContextPath = function(window, onClick) {
   const separator = document.createElement("p");
   separator.innerText = " ᐅ ";
   separator.style.marginLeft = "1%";
-  separator.style.marginBottom = "0";
   contextContainer.appendChild(separator);
 
   const newContextPath = document.createElement("p");
