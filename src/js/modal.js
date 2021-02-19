@@ -11,9 +11,9 @@ export class Modal {
     modalContainer.appendChild(img);
 
     const textContainer = document.createElement("div");
-    const pName = document.createElement("p");
-    pName.innerText = `Nom: ${practitioner.name}`;
-    textContainer.appendChild(pName);
+    const h2Name = document.createElement("h2");
+    h2Name.innerText = `Dr. ${practitioner.lastName}`;
+    textContainer.appendChild(h2Name);
 
     const pSpeciliaties = document.createElement("p");
     pSpeciliaties.innerText = `Spécialité: ${practitioner.specialities

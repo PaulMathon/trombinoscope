@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
 @font-face {
   font-family: arimo;
   src: url(../assets/fonts/Arimo/Arimo-VariableFont_wght.ttf);
@@ -202,12 +204,12 @@ html, body {
   top: 45%;
 }
 
+
 .window-title {
-  font-size: 80%;
   width: 90%;
-  height: 13%;
-  margin: 0 5%;
-}
+  height: 11%;
+  margin: 1% 5% 1% 7%;
+  font-family: 'PT Sans', sans-serif;}
 
 .window {
   width: 100%;
