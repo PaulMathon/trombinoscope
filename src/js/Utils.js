@@ -1,14 +1,21 @@
 import { Practitioner } from "./Practitioner.js";
-
+import { UI } from "./UI.js";
 export class Utils {
 }
 
 Utils.fetchPractitioners = function(url) {
   return fetch(url)
     .then((result) => result.json())
-    .then((practitioners) => practitioners.map(
-      ({firstName, lastName, specialities, cabinets, phones}) =>
-      new Practitioner(firstName, lastName, specialities, cabinets, phones)));
+    .then((practitioners) => {
+      if (practitioners.error) {
+        UI.showError(practitioners);
+        return practitioners;
+      } 
+      return practitioners.map(
+        ({firstName, lastName, specialities, cabinets, phones}) =>
+        new Practitioner(firstName, lastName, specialities, cabinets, phones)
+      );
+    });
 };
 
 Utils.getCriterias = function(data) {

@@ -107,3 +107,13 @@ UI.initSearchDatalists = function(data, criterias) {
       }
     });
 };
+
+UI.showError = function({error, message}) {
+  const errorContainer = document.getElementById("error-container");
+  errorContainer.querySelector("#error-title").innerText = error;
+  errorContainer.querySelector("#error-message").innerText = message;
+  errorContainer.classList.add("active");
+  setTimeout(() => {
+    errorContainer.classList.remove("active");
+  }, 10000);
+};

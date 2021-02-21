@@ -6,6 +6,9 @@ function main() {
   Utils.fetchPractitioners(config.dataUrl)
     .then((data) => {
       document.querySelector(".lds-roller").style.display = "none";
+      if (data.error) {
+        return;
+      }
       const context = new Context(config, data);
     });
 }

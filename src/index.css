@@ -255,6 +255,39 @@ html, body {
   border: 1px blue solid;
 }
 
+#error-container {
+  position: fixed;
+  top: 5%;
+  right: 5%;
+  width: 20em;
+  z-index: 3;
+  background-color: #faf9f9;
+  box-shadow: 0px 0px 6px 3px #c4c4c4;
+  padding: 2em;
+  border: 2px solid #E87461;
+  border-radius: 0.5em;
+  transform: translateX(120%);
+  transition: transform 800ms;
+}
+
+#error-container.active {
+  transform: translateX(0);
+}
+
+#error-container:hover {
+  transform: scale(1.05);
+  background-color: #f0f0f0;
+}
+
+#error-container #error-title {
+  margin-top:0;
+  border-bottom: 2px solid #E87461;
+}
+
+#error-container #error-message {
+  margin-top: 2%;
+}
+
 
 /*******************
 Loading animation
