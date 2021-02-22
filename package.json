@@ -1,0 +1,41 @@
+{
+  "name": "trombinoscope",
+  "version": "1.0.0",
+  "description": "An innovative tool allowing to discover the workers in a company as a map",
+  "private": true,
+  "scripts": {
+    "test": "mocha './test/**/*.test.js'",
+    "export": "npx webpack --config webpack.config.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulMathon/trombinoscope.git"
+  },
+  "keywords": [
+    "trombinoscope",
+    "map",
+    "collaborators",
+    "search",
+    "ui",
+    "zoom"
+  ],
+  "author": "Paul Mathon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulMathon/trombinoscope/issues"
+  },
+  "homepage": "https://github.com/PaulMathon/trombinoscope#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "chai": "^4.2.0",
+    "mocha": "8.3.0",
+    "path": "^0.12.7",
+    "webpack": "^5.23.0",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "npm": "^7.5.4",
+    "tingle.js": "^0.15.3"
+  }
+}
