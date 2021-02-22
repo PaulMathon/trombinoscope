@@ -1,4 +1,5 @@
 import { Modal } from "./Modal.js";
+import { tingle } from "./lib/tingle.js";
 
 export class Window {
 

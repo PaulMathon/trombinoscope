@@ -19,7 +19,7 @@
   align-items: center;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
-  background: rgba(0, 0, 0, .85);
+  background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   -webkit-user-select: none;
   -ms-user-select: none;
