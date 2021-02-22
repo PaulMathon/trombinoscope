@@ -1,4 +1,5 @@
 import { Window, PractitionerCard } from "./Window.js";
+import { fitText } from "./lib/fitText.js";
 
 export class Display {
 
@@ -16,7 +17,7 @@ export class Display {
     if (data.length > 0) {
       const mainWindow = createWindow(data, this.criterias, this.dispositionPath, "home", null);
       document.getElementById("display-content").appendChild(mainWindow.htmlElement);
-
+      fitText();
       optimizeTextSize();
       return mainWindow;
     }

@@ -8,7 +8,7 @@
 *
 * Date: Tue Aug 09 2011 10:45:54 GMT+0200 (CEST)
 */
-(function(){
+export const fitText = function(){
 
   var addEvent = function (el, type, fn) {
     if (el.addEventListener)
@@ -57,4 +57,4 @@
     // return set of elements
     return el;
   };
-})();
+};
