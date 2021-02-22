@@ -1,3 +1,5 @@
+import { Scroller } from "./lib/Scroller.js";
+
 export class Zoomer {
 
   constructor(zoomSpeedMs) {
