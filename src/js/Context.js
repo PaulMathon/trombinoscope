@@ -1,5 +1,5 @@
-import { Display } from "./Displays.js";
-import { Disposition } from "./Dispositions.js";
+import { Display } from "./Display.js";
+import { Disposition } from "./Disposition.js";
 import { Zoomer } from "./Zoomer.js";
 import { SearchHandler } from "./SearchHandler.js";
 import { Utils } from "./Utils.js";

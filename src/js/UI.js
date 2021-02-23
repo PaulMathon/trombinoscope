@@ -1,4 +1,4 @@
-import { Disposition } from "./Dispositions.js";
+import { Disposition } from "./Disposition.js";
 
 
 /**
