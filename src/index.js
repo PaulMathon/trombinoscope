@@ -1,6 +1,6 @@
 import { config } from "./js/config/config.dev.js";
 import { Utils } from "./js/Utils.js";
-import { Context } from "./js/Contexts.js";
+import { Context } from "./js/Context.js";
 
 function main() {
   Utils.fetchPractitioners(config.dataUrl)
