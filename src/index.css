@@ -5,13 +5,13 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Arimo', Arial, Helvetica, sans-serif;
   height: 100%;
 }
 
 #main-container {
   display: flex;
   height: 100%;
+  font-family: 'Arimo', Arial, Helvetica, sans-serif;
 }
 
 #search-bar {
@@ -133,6 +133,11 @@ html, body {
   transition: width 500ms;
   overflow: hidden;
   border-right: #cccccc solid 2px;
+
+  /* WordPress specific */
+  text-transform: none;
+  color: black;
+  padding: 0;
 }
 
 #disposition-container #btn-container button:first-child {
@@ -212,7 +217,8 @@ html, body {
   width: 90%;
   height: 11%;
   margin: 1% 5% 1% 7%;
-  font-family: 'PT Sans', sans-serif;}
+  font-family: 'PT Sans', sans-serif;
+}
 
 .window {
   width: 100%;

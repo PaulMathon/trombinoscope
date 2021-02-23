@@ -1,6 +1,9 @@
 import { PractitionerCard } from "./Window.js";
-import { UI } from "./UI.js";
 
+/**
+ * Handles all registered UI events: "click" or "submit" events
+ * @param {object} context used to update context when events occur
+ */
 export class EventHandler {
 
   constructor(context) {

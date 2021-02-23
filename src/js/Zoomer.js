@@ -1,5 +1,9 @@
 import { Scroller } from "./lib/Scroller.js";
 
+/**
+ * Handles the zooming animations
+ * @param {number} zoomSpeedMs Zoom transition time in milliseconds
+ */
 export class Zoomer {
 
   constructor(zoomSpeedMs) {

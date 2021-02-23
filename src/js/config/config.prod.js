@@ -7,3 +7,9 @@ export const config = {
   defaultPath: ["speciality", "cabinet"],
   zoomSpeedMs: 500,
 };
+
+/**
+ * WordPress specific
+ */
+document.querySelector("header").style.height = "20vh";
+document.querySelector("#content").style.height = "80vh";

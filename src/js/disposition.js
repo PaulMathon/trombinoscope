@@ -1,5 +1,11 @@
 import { UI } from "./UI.js";
 
+/**
+ * Manage the disposition of the practitioners
+ * How they are ordered : by speciality, city, cabinets, or none
+ * And how it possible to organize them according to the disposition path
+ * @param {array} dispositionPath example: ["speciality", "cabinet"]  
+ */
 export class Disposition {
 
   constructor(dispositionpPath) {
@@ -55,7 +61,7 @@ export class Disposition {
   }
   
   /**
-   * To improve
+   * Find the new disposition path
    * @param {*} zoomLevel 
    * @param {*} criteria 
    */

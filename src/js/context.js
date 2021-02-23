@@ -6,6 +6,12 @@ import { Utils } from "./Utils.js";
 import { EventHandler } from "./EventHandler.js";
 import { UI } from "./UI.js";
 
+
+/**
+ * Manage actions according to the context
+ * @param {object} config Main configuration of the application
+ * @param {array} data Array of practitioners
+ */
 export class Context {
 
   constructor(config, data) {

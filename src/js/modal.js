@@ -1,5 +1,9 @@
 import { buidPractitionerCardUi } from "./Display.js";
 
+
+/**
+ * 
+ */
 export class Modal {
   constructor(mediaPath) {
     this.mediaPath = mediaPath;
