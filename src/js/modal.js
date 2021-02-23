@@ -17,19 +17,20 @@ export class Modal {
     modalContainer.appendChild(img);
 
     const textContainer = document.createElement("div");
+    textContainer.classList.add("textcontainer") 
     const h2Name = document.createElement("h2");
     h2Name.innerText = `Dr. ${practitioner.lastName}`;
     textContainer.appendChild(h2Name);
 
     const pSpeciliaties = document.createElement("p");
-    pSpeciliaties.innerText = `Spécialité: ${practitioner.specialities
+    pSpeciliaties.innerText = `Spécialité(s) : ${practitioner.specialities
       .reduce((prevValue, value, index) =>prevValue +=
         `${value}${index+1 < practitioner.specialities.length ? " ● " : ""} `, "")
     }`;
     textContainer.appendChild(pSpeciliaties);
 
     const pCabinetTitle = document.createElement("p");
-    pCabinetTitle.innerText = "Cabinets:";
+    pCabinetTitle.innerText = "Cabinets :";
     textContainer.appendChild(pCabinetTitle);
 
     const cabinetList = document.createElement("ul");

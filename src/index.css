@@ -260,8 +260,8 @@ html, body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  opacity: 0.5;
-  border: 1px blue solid;
+  border: 2px #d66857 solid;
+  border-radius: 20px;
 }
 
 #error-container {
@@ -297,6 +297,9 @@ html, body {
   margin-top: 2%;
 }
 
+.textcontainer {
+  margin-left: 20px;
+}
 
 /*********************
  * Loading animation *
