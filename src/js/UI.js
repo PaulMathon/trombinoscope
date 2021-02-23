@@ -1,5 +1,9 @@
-import { Disposition } from "./Disposition.js";
+import { Disposition } from "./Dispositions.js";
 
+
+/**
+ * Static class that handles every UI modifications
+ */
 export class UI {
 
 }

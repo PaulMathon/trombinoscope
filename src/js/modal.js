@@ -1,4 +1,4 @@
-import { buidPractitionerCardUi } from "./Display.js";
+import { buidPractitionerCardUi } from "./Displays.js";
 
 
 /**

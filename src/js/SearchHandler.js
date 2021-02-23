@@ -1,5 +1,8 @@
 import { UI } from "./UI.js";
 
+/**
+ * Handles 
+ */
 export class SearchHandler {
 
   constructor(data, criterias) {

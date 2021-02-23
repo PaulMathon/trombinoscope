@@ -396,6 +396,7 @@ html, body {
  *********/
 
 .tingle-modal * {
+  font-family: 'Arimo', Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
 
