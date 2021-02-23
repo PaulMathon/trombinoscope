@@ -1,6 +1,6 @@
 # Trombinoscope
 
-![Trombinoscope demo](./assets/doc/trombi_demo.gif)
+<img src="./assets/doc/trombi_demo.gif"/>
 
 ## Getting Started
 
