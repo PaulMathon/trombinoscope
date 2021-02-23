@@ -13,7 +13,7 @@ export class Context {
     this.data = data;
     this.criterias = Utils.getCriterias(data);
     this.searchHandler = new SearchHandler(data, this.criterias);
-    this.display = new Display(config.defaultPath, this.criterias);
+    this.display = new Display(config, this.criterias);
     this.disposition = new Disposition(config.defaultPath);
     this.zoomer = new Zoomer(config.zoomSpeedMs);
     this.contextPath = [this.display.new(this.data)];

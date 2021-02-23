@@ -1,13 +1,15 @@
 import { buidPractitionerCardUi } from "./Display.js";
 
 export class Modal {
-  constructor() {}
+  constructor(mediaPath) {
+    this.mediaPath = mediaPath;
+  }
 
   new(practitioner) {
     const modalContainer = document.createElement("div");
     modalContainer.classList.add("modal-container");
 
-    const img = buidPractitionerCardUi(practitioner);
+    const img = buidPractitionerCardUi(practitioner, this.mediaPath);
     modalContainer.appendChild(img);
 
     const textContainer = document.createElement("div");

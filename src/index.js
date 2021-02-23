@@ -1,4 +1,4 @@
-import { config } from "./js/config.js";
+import { config } from "./js/config/config.prod.js";
 import { Utils } from "./js/Utils.js";
 import { Context } from "./js/Context.js";
 
@@ -9,7 +9,7 @@ function main() {
       if (data.error) {
         return;
       }
-      const context = new Context(config, data);
+      new Context(config, data);
     });
 }
 
