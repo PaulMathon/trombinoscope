@@ -147,11 +147,19 @@ At first the data is loaded from a Google Sheet accessible from the administrato
 ### Building the display
 
 Once the practitioner's data is loaded, the display of these practitioners can be built. The [Display](./src/js/Display.js) object is responsible to recursively create the windows and sub-windows according to the disposition path and the practitioner's data.
-For example if the disposition path is ["`speciality`", "`cabinet`"], the display will at first create windows according to the speciality of the pracititioners, and then each of these windows will contain sub-windows accord
+For example if the disposition path is ["`speciality`", "`cabinet`"], the display will at first create windows according to the speciality of the pracititioners, and then each of these windows will contain sub-windows according the the cabinets of the practitioners.
 
 ### Initialize the events
 
-### 
+Multiple UI events can occur on the application:
+- **Context events**: When the user clicks on an element of the Ariane's thread. Zoom out until the main window is corresponding to the clicked path element.
+- **Disposition events**: When the user clicks on a disposition button. Change the current disposition of the practitioners. For example if the user clicks on the `disposition` cabinet, the practioners will be reorganized according to their cabinets.
+- **Search events**: 
+
+### UML Diagram
+
+<img src="./assets/doc/UML.png"/>
+
 ## External Libraries
 
 3 external libraries are used for this project:
