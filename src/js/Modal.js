@@ -34,17 +34,17 @@ export class Modal {
     textContainer.appendChild(pCabinetTitle);
 
     const cabinetList = document.createElement("ul");
-    practitioner.cabinets.forEach(({name, city, postalCode, address}) => {
+    practitioner.cabinets.forEach(({name, city, postalCode, address, phone}) => {
       const li = document.createElement("li");
-      li.innerText = `${name}: ${city}, ${postalCode}, ${address}`;
+      li.innerText = `${name}: ${city}, ${postalCode}, ${address}, ${phone}`;
       cabinetList.appendChild(li);
     });
     textContainer.appendChild(cabinetList);
 
     const pPhones = document.createElement("p");
-    pPhones.innerText = `Téléphones: ${practitioner.phones
-      .reduce((prevValue, value, index) => prevValue +=
-        `${value}${index+1 < practitioner.phones.length ? " ● " : ""}`, "")
+    pPhones.innerText = `Téléphones: ${practitioner.cabinets
+      .reduce((prevValue, {phone}, index) => prevValue +=
+        `${phone}${index+1 < practitioner.cabinets.length ? " ● " : ""}`, "")
     }`;
     textContainer.appendChild(pPhones);
     modalContainer.appendChild(textContainer);

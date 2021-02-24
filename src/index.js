@@ -1,4 +1,4 @@
-import { config } from "./js/config/config.prod.js";
+import { config } from "./js/config/config.dev.js";
 import { Utils } from "./js/Utils.js";
 import { Context } from "./js/Context.js";
 

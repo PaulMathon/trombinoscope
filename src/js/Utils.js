@@ -12,8 +12,8 @@ Utils.fetchPractitioners = function(url) {
         return practitioners;
       } 
       return practitioners.map(
-        ({firstName, lastName, specialities, cabinets, phones, profileURL}) =>
-        new Practitioner(firstName, lastName, specialities, cabinets, phones, profileURL)
+        ({firstName, lastName, specialities, cabinets, profileURL}) =>
+        new Practitioner(firstName, lastName, specialities, cabinets, profileURL)
       );
     });
 };
