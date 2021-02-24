@@ -46,12 +46,12 @@ export class Window {
 
 export class PractitionerCard {
 
-  constructor(practitioner, htmlElement, mediaPath) {
+  constructor(practitioner, htmlElement, defaultProfileUrl) {
     this.practitioner = practitioner;
     this.htmlElement = htmlElement;
 
     this.htmlElement.addEventListener("click", this.openModal());
-    this.modal = new Modal(mediaPath);
+    this.modal = new Modal(defaultProfileUrl);
   }
 
   openModal() {

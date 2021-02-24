@@ -29,7 +29,8 @@ function getPractitioners(sheet, cabinets) {
           return cabinet;
         }),
         specialities: getList(dataRow, i, 3, "spécialités"),
-        phones: getList(dataRow, i, 3, "téléphones"),
+        phones: getList(dataRow, i, 4, "téléphones"),
+        profileURL: dataRow[6]
       });
     } catch (error) {
       return error;

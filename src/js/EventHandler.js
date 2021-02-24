@@ -18,6 +18,9 @@ export class EventHandler {
     this.initSearchEvents();
   }
 
+  /**
+   * Init click listeners on disposition buttons
+   */
   onDisposition() {
     const specialityButton = document.getElementById("speciality-btn");
     specialityButton.classList.add("active");
@@ -37,6 +40,11 @@ export class EventHandler {
     );
   }
 
+  /**
+   * Action when clicking on a window: zoom on the window
+   * and set its sub-windows zoomable
+   * @param {object} window to zoom in
+   */
   onZoom(window) {
     window.children.forEach((zoomable) => {
       const onZoom = () => {
@@ -49,20 +57,24 @@ export class EventHandler {
     });
   }
 
+  /**
+   * Add click event listener on the home button
+   */
   initContextPathEvents() {
-    const contextContainer = document.getElementById("context-container");
-    while (contextContainer.children.length > 1) {
-      contextContainer.lastChild.remove();
-    }
-    contextContainer.childNodes.forEach((child) => 
-      child.addEventListener("click", this.onPreviousContext())
-    );
+    document.getElementById("context-container")
+      .children[0].addEventListener("click", this.onPreviousContext());
   }
 
+  /**
+   * Go back to the clicked path element
+   * While the last element of the context path is not the corresponding
+   * to the click path element, action this.context.previous() function
+   */
   onPreviousContext() {
     const contextPath = this.context.contextPath;
     return (event) => {
       let currentWindow = contextPath[contextPath.length - 1];
+      // The id of the path elements is the same used for window.name
       const windowToGoBack = event.target.id;
       while (currentWindow.name !== windowToGoBack) {
         this.context.previous();
@@ -71,10 +83,15 @@ export class EventHandler {
     };
   }
 
+
+  /**
+   * Init events listener for the search (submit and clicks on buttons)
+   */
   initSearchEvents() {
 
     document.getElementById("search-form")
       .addEventListener("submit", (event) => {
+        // Avoid reeloading the page on submit
         event.preventDefault();
         return this.context.onSearch();
       });

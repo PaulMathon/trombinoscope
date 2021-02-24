@@ -46,7 +46,9 @@ You can now run the command `npm run build` to create the final WordPress Templa
 - [trombinoscope.php](./dist/template.php)
 
 To import your modifications in the WordPress template, you will finally have to replace the [trombinoscope.php](./dist/template.php) file in the WordPress source files of your project: at path `wordpress/wp-content/themes/{theme_name}/templates`.
+To access to the source files of the WordPress website, you have to access to its server through FTP. Go to OVH's administration page for further information. 
 
+## File Organization
 ## How does it works
 
 Before starting to understand the code you first need to understand few things:
@@ -91,6 +93,7 @@ The following example roughly represents it:
 ### Fetching the data
 
 At first the data is loaded from a Google Sheet accessible from the administrator account at the following address `trombi.intranet@gmail.com`. Once 
+Script in google script app
 ### Building the display
 
 The 

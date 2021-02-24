@@ -5,19 +5,19 @@ import { buidPractitionerCardUi } from "./Display.js";
  * 
  */
 export class Modal {
-  constructor(mediaPath) {
-    this.mediaPath = mediaPath;
+  constructor(defaultProfileUrl) {
+    this.defaultProfileUrl = defaultProfileUrl;
   }
 
   new(practitioner) {
     const modalContainer = document.createElement("div");
     modalContainer.classList.add("modal-container");
 
-    const img = buidPractitionerCardUi(practitioner, this.mediaPath);
+    const img = buidPractitionerCardUi(practitioner, this.defaultProfileUrl);
     modalContainer.appendChild(img);
 
     const textContainer = document.createElement("div");
-    textContainer.classList.add("textcontainer") 
+    textContainer.classList.add("textcontainer");
     const h2Name = document.createElement("h2");
     h2Name.innerText = `Dr. ${practitioner.lastName}`;
     textContainer.appendChild(h2Name);

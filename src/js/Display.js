@@ -8,7 +8,7 @@ export class Display {
 
   constructor(config, criterias) {
     this.dispositionPath = config.defaultPath;
-    this.mediaPath = config.mediaPath;
+    this.defaultProfileUrl = config.defaultProfileUrl;
     this.criterias = criterias;
   }
 
@@ -19,7 +19,7 @@ export class Display {
     emptyContent(displayContent);
 
     if (data.length > 0) {
-      const mainWindow = createWindow(data, this.criterias, this.dispositionPath, this.mediaPath, "home");
+      const mainWindow = createWindow(data, this.criterias, this.dispositionPath, this.defaultProfileUrl, "home");
       document.getElementById("display-content").appendChild(mainWindow.htmlElement);
       fitText();
       optimizeTextSize();
@@ -42,10 +42,10 @@ function emptyContent(container) {
   }
 }
 
-function createWindow(data, criterias, dispositionPath, mediaPath, rootPath) {
+function createWindow(data, criterias, dispositionPath, defaultProfileUrl, rootPath) {
 
   if (dispositionPath.length === 0) {
-    const children = createCards(data, mediaPath);
+    const children = createCards(data, defaultProfileUrl);
     return new Window(rootPath, children,
       buildWindowUi(children, rootPath));
   }
@@ -66,11 +66,11 @@ function createWindow(data, criterias, dispositionPath, mediaPath, rootPath) {
           practitioner.cabinets.map(({city}) => city).indexOf(criteria) !== -1
         ); 
         if (newData.length > 0) {
-          children.push(createWindow(newData, criterias, dispositionPath.slice(1, dispositionPath.length), mediaPath, criteria));
+          children.push(createWindow(newData, criterias, dispositionPath.slice(1, dispositionPath.length), defaultProfileUrl, criteria));
         }
       }
     } else {
-      children = createCards(data, mediaPath);
+      children = createCards(data, defaultProfileUrl);
     }
     const htmlElement = buildWindowUi(children, rootPath);
     const window = new Window(rootPath, children, htmlElement);
@@ -78,9 +78,9 @@ function createWindow(data, criterias, dispositionPath, mediaPath, rootPath) {
   }
 }
 
-function createCards(data, mediaPath) {
+function createCards(data, defaultProfileUrl) {
   return data.map((practitioner) => 
-    new PractitionerCard(practitioner, buidPractitionerCardUi(practitioner, mediaPath), mediaPath));
+    new PractitionerCard(practitioner, buidPractitionerCardUi(practitioner, defaultProfileUrl), defaultProfileUrl));
 }
 
 function buildWindowUi(children, containerName) {
@@ -100,21 +100,18 @@ function buildWindowUi(children, containerName) {
   return container;
 }
 
-export function buidPractitionerCardUi(practitioner, mediaPath) {
+export function buidPractitionerCardUi(practitioner, defaultProfileUrl) {
   const img = new Image();
-  let tryCount = 1;
+  let fistError = true;
   const firstName = normalizeString(practitioner.firstName);
   const lastName = normalizeString(practitioner.lastName);
   img.onerror = () => {
-    tryCount++;
-    if (tryCount === 2) {
-      img.src = `${mediaPath}/${firstName}_${lastName}.jpg`;
+    if (fistError) {
+      img.src = defaultProfileUrl;
     }
-    else if (tryCount === 3) {
-      img.src = `${mediaPath}/profile.png`;
-    }
+    fistError = false;
   };
-  img.src = `${mediaPath}/${lastName}_${firstName}.jpg`;
+  img.src = practitioner.profileURL;
   img.classList.add("practitioner-card");
   return img;
 }

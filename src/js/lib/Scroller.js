@@ -22,14 +22,11 @@
 	var counter = 1;
 
 	// Create namespaces
-	if (!global.core) {
-		global.core = { effect : {} };
-
-	} else if (!core.effect) {
-		core.effect = {};
+	if (!global.scrollCore) {
+		global.scrollCore = { effect : {} };
+	} else if (!scrollCore.effect) {
 	}
-
-	core.effect.Animate = {
+	scrollCore.effect.Animate = {
 
 		/**
 		 * A requestAnimationFrame wrapper / polyfill.
@@ -211,7 +208,7 @@
 					completedCallback && completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, percent === 1 || duration == null);
 				} else if (render) {
 					lastFrame = now;
-					core.effect.Animate.requestAnimationFrame(step, root);
+					scrollCore.effect.Animate.requestAnimationFrame(step, root);
 				}
 			};
 
@@ -219,7 +216,7 @@
 			running[id] = true;
 
 			// Init first step
-			core.effect.Animate.requestAnimationFrame(step, root);
+			scrollCore.effect.Animate.requestAnimationFrame(step, root);
 
 			// Return unique animation ID
 			return id;
@@ -670,7 +667,7 @@ export var Scroller;
 
 			// Stop deceleration
 			if (self.__isDecelerating) {
-				core.effect.Animate.stop(self.__isDecelerating);
+				scrollCore.effect.Animate.stop(self.__isDecelerating);
 				self.__isDecelerating = false;
 			}
 
@@ -747,7 +744,7 @@ export var Scroller;
 
 			// Stop deceleration
 			if (self.__isDecelerating) {
-				core.effect.Animate.stop(self.__isDecelerating);
+				scrollCore.effect.Animate.stop(self.__isDecelerating);
 				self.__isDecelerating = false;
 			}
 
@@ -879,14 +876,14 @@ export var Scroller;
 
 			// Stop deceleration
 			if (self.__isDecelerating) {
-				core.effect.Animate.stop(self.__isDecelerating);
+				scrollCore.effect.Animate.stop(self.__isDecelerating);
 				self.__isDecelerating = false;
 				self.__interruptedAnimation = true;
 			}
 
 			// Stop animation
 			if (self.__isAnimating) {
-				core.effect.Animate.stop(self.__isAnimating);
+				scrollCore.effect.Animate.stop(self.__isAnimating);
 				self.__isAnimating = false;
 				self.__interruptedAnimation = true;
 			}
@@ -1270,7 +1267,7 @@ export var Scroller;
 			// Remember whether we had an animation, then we try to continue based on the current "drive" of the animation
 			var wasAnimating = self.__isAnimating;
 			if (wasAnimating) {
-				core.effect.Animate.stop(wasAnimating);
+				scrollCore.effect.Animate.stop(wasAnimating);
 				self.__isAnimating = false;
 			}
 
@@ -1325,9 +1322,8 @@ export var Scroller;
 						}
 					}
 				};
-
 				// When continuing based on previous animation we choose an ease-out animation instead of ease-in-out
-				self.__isAnimating = core.effect.Animate.start(step, verify, completed, self.options.animationDuration, wasAnimating ? easeOutCubic : easeInOutCubic);
+				self.__isAnimating = scrollCore.effect.Animate.start(step, verify, completed, self.options.animationDuration, wasAnimating ? easeOutCubic : easeInOutCubic);
 
 			} else {
 
@@ -1435,7 +1431,7 @@ export var Scroller;
 			};
 
 			// Start animation and switch on flag
-			self.__isDecelerating = core.effect.Animate.start(step, verify, completed);
+			self.__isDecelerating = scrollCore.effect.Animate.start(step, verify, completed);
 
 		},
 
