@@ -13,9 +13,9 @@ export const config = {
  */
 const header = document.querySelector("header");
 if (header) {
-  header.style.height = "20vh";
+  header.style.height = "23vh";
 }
 const content = document.querySelector("#content");
 if (content) {
-  content.style.height = "80vh";
+  content.style.height = "77vh";
 }

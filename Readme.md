@@ -55,6 +55,12 @@ To access to the source files of the WordPress website, you have to access to it
 All the test files are located in the [/test](./test) folder and their names are respecting the [name].test.js naming convention.
 To execute the tests, just run the following command: `npm run test`.
 
+## Configuration
+
+Two configuration files are contained in the [config](./src/config) folder:
+- config.dev.js: used for development mode
+- config.prod.js: used for production mode
+
 ## File Organization
 
 [root]  

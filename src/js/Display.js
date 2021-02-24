@@ -1,8 +1,10 @@
 import { Window, PractitionerCard } from "./Window.js";
 import { fitText } from "./lib/fitText.js";
+import { UI } from "./UI.js";
 
 /**
- * ljkio
+ * Create a display of windows and sub-windows according to the
+ * practitioners and a dispositionPath
  */
 export class Display {
 
@@ -16,7 +18,7 @@ export class Display {
     this.dispositionPath = dispositionPath ? dispositionPath : this.dispositionPath;
   
     const displayContent = document.getElementById("display-content");
-    emptyContent(displayContent);
+    UI.emptyElementContent(displayContent);
 
     if (data.length > 0) {
       const mainWindow = createWindow(data, this.criterias, this.dispositionPath, this.defaultProfileUrl, "home");
@@ -34,24 +36,16 @@ export class Display {
   }
 }
 
-function emptyContent(container) {
-  if (container.children.length) {
-    for (const child of container.children) {
-      container.removeChild(child);
-    }
-  }
-}
-
 function createWindow(data, criterias, dispositionPath, defaultProfileUrl, rootPath) {
 
   if (dispositionPath.length === 0) {
-    const children = createCards(data, defaultProfileUrl);
+    const children = createPractitionerCards(data, defaultProfileUrl);
     return new Window(rootPath, children,
-      buildWindowUi(children, rootPath));
+      UI.createWindowElement(children, rootPath));
   }
   else {
     const dispositionEl = dispositionPath[0];
-    const practionerProperty = dispositionToPractitionerProperty(dispositionEl);
+    const practionerProperty = toPlural(dispositionEl);
     let children;
     if (practionerProperty) {
       children = [];
@@ -70,72 +64,22 @@ function createWindow(data, criterias, dispositionPath, defaultProfileUrl, rootP
         }
       }
     } else {
-      children = createCards(data, defaultProfileUrl);
+      children = createPractitionerCards(data, defaultProfileUrl);
     }
-    const htmlElement = buildWindowUi(children, rootPath);
+    const htmlElement = UI.createWindowElement(children, rootPath);
     const window = new Window(rootPath, children, htmlElement);
     return window;
   }
 }
 
-function createCards(data, defaultProfileUrl) {
+function createPractitionerCards(data, defaultProfileUrl) {
   return data.map((practitioner) => 
-    new PractitionerCard(practitioner, buidPractitionerCardUi(practitioner, defaultProfileUrl), defaultProfileUrl));
-}
-
-function buildWindowUi(children, containerName) {
-  let container = document.createElement("div");
-  container.classList.add("window");
-  const content = createContent(children);
-  if (containerName && containerName !== "home") {
-    let title = document.createElement("p");
-    title.innerHTML = containerName;
-    title.classList.add("window-title");
-    container.appendChild(title);
-  } else {
-    content.style.marginTop = "3%";
-  }
-  container.appendChild(content);
-
-  return container;
-}
-
-export function buidPractitionerCardUi(practitioner, defaultProfileUrl) {
-  const img = new Image();
-  let fistError = true;
-  const firstName = normalizeString(practitioner.firstName);
-  const lastName = normalizeString(practitioner.lastName);
-  img.onerror = () => {
-    if (fistError) {
-      img.src = defaultProfileUrl;
-    }
-    fistError = false;
-  };
-  img.src = practitioner.profileURL;
-  img.classList.add("practitioner-card");
-  return img;
-}
-
-function createContent(children) {
-  let content = document.createElement("div");
-  content.classList.add("overview");
-  for (const child of children) {
-    content.appendChild(child.htmlElement); 
-  }
-  return content;
-}
-
-function normalizeString(string) {
-  return string.toLowerCase()
-    .replace(" ", "-")
-    .replace("ç", "c")
-    .replace("ï", "i")
-    .replace("î", "i")
-    .replace("â", "a")
-    .replace("à", "a")
-    .replace("é", "e")
-    .replace("è", "e")
-    .replace("ê", "e");
+    new PractitionerCard(
+      practitioner,
+      UI.buidPractitionerCardElement(practitioner, defaultProfileUrl),
+      defaultProfileUrl
+    )
+  );
 }
 
 function optimizeTextSize() {
@@ -150,7 +94,7 @@ function optimizeTextSize() {
   });
 }
 
-function dispositionToPractitionerProperty(criteria) {
+function toPlural(criteria) {
   switch (criteria) {
     case "speciality":
       return "specialities";

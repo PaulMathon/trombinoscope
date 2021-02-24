@@ -1,5 +1,5 @@
 import { Disposition } from "./Disposition.js";
-
+import { Utils } from "./Utils.js";
 
 /**
  * Static class that handles every UI modifications
@@ -7,6 +7,43 @@ import { Disposition } from "./Disposition.js";
 export class UI {
 
 }
+
+UI.createWindowElement = function(children, containerName) {
+  let container = document.createElement("div");
+  container.classList.add("window");
+  const content = createOverviewElement(children);
+  if (containerName && containerName !== "home") {
+    let title = document.createElement("p");
+    title.innerHTML = containerName;
+    title.classList.add("window-title");
+    container.appendChild(title);
+  } else {
+    content.style.marginTop = "3%";
+  }
+  container.appendChild(content);
+
+  return container;
+};
+
+UI.buidPractitionerCardElement = function(practitioner, defaultProfileUrl) {
+  const img = new Image();
+  let fistError = true;
+  img.onerror = () => {
+    if (fistError) img.src = defaultProfileUrl;
+    fistError = false;
+  };
+  img.src = practitioner.profileURL;
+  img.classList.add("practitioner-card");
+  return img;
+};
+
+UI.emptyElementContent = function(container) {
+  if (container.children.length) {
+    for (const child of container.children) {
+      container.removeChild(child);
+    }
+  }
+};
 
 UI.addContextPath = function(window, onClick) {
   const contextContainer = document.getElementById("context-container");
@@ -121,3 +158,12 @@ UI.showError = function({error, message}) {
     errorContainer.classList.remove("active");
   }, 10000);
 };
+
+function createOverviewElement(children) {
+  let content = document.createElement("div");
+  content.classList.add("overview");
+  for (const child of children) {
+    content.appendChild(child.htmlElement); 
+  }
+  return content;
+}

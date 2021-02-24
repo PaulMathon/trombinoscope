@@ -1,4 +1,4 @@
-import { buidPractitionerCardUi } from "./Display.js";
+import { UI } from "./UI.js";
 
 
 /**
@@ -13,7 +13,7 @@ export class Modal {
     const modalContainer = document.createElement("div");
     modalContainer.classList.add("modal-container");
 
-    const img = buidPractitionerCardUi(practitioner, this.defaultProfileUrl);
+    const img = UI.buidPractitionerCardElement(practitioner, this.defaultProfileUrl);
     modalContainer.appendChild(img);
 
     const textContainer = document.createElement("div");
