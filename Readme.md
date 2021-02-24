@@ -1,4 +1,6 @@
 # Trombinoscope
+
+A original, very graphic way to represent the co-workers of an organization.
   
 <img src="./assets/doc/trombi_demo.gif"/>
   
@@ -46,9 +48,57 @@ You can now run the command `npm run build` to create the final WordPress Templa
 - [trombinoscope.php](./dist/template.php)
 
 To import your modifications in the WordPress template, you will finally have to replace the [trombinoscope.php](./dist/template.php) file in the WordPress source files of your project: at path `wordpress/wp-content/themes/{theme_name}/templates`.
-To access to the source files of the WordPress website, you have to access to its server through FTP. Go to OVH's administration page for further information. 
+To access to the source files of the WordPress website, you have to access to its server through FTP. Please go to OVH's administration page for further information. 
+
+## Testing
+
+All the test files are located in the [/test](./test) folder and their names are respecting the [name].test.js convention.
+To execute the tests, just run the following command: `npm run test`.
 
 ## File Organization
+
+root  
+ +- assets  
+ |&nbsp;&nbsp;&nbsp;&nbsp;+- doc  
+ |&nbsp;&nbsp;&nbsp;&nbsp;+- practiciens  
+ +- dist  
+ +- scripts  
+ +- src  
+ |&nbsp;&nbsp;&nbsp;&nbsp;+- js  
+ |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+- config  
+ |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+- lib  
+ +- test  
+
+### /Assets
+
+Contains all the medias (pictures, gif, etc.) of the application.
+
+#### /Doc
+
+Contains the medias displayed in this documentation file.
+
+#### /Practictioners
+
+Contains the pictures of most of the practitioners, just in case the medias stored in WordPress are lost
+
+### /Dist
+
+Contains all the automatically generated files. To generate those files just run the command `npm run build`
+
+### /Scripts
+
+Contains all the external scripts needed for the application:
+- [ggSheetScript.js](./scripts/ggSheetScript.js): This script is executed on a **Google Script App** to provide the REST API for accessing the practitioner's data.
+- [templateGenerator.js](./scripts/templateGenerator.js): This script is used to generate the **template.php** file.
+
+### /Src
+
+Contains all the sources files, which are mainly javascript files. Please go to the *How does it works" for further information.
+
+### /Test
+
+Contains all the test files. Please go to the *Testing* section for further information.
+
 ## How does it works
 
 Before starting to understand the code you first need to understand few things:
@@ -92,11 +142,13 @@ The following example roughly represents it:
 
 ### Fetching the data
 
-At first the data is loaded from a Google Sheet accessible from the administrator account at the following address `trombi.intranet@gmail.com`. Once 
-Script in google script app
+At first the data is loaded from a Google Sheet accessible from the administrator account at the following address `trombi.intranet@gmail.com`. A script place in [Google Script App](https://script.google.com/) cluster is executed to fetch the data from the Google Sheet to the application. You can find a copy of this script [here](./scripts/ggSheetScript.js)
+
 ### Building the display
 
-The 
+Once the practitioner's data is loaded, the display of these practitioners can be built. The [Display](./src/js/Display.js) object is responsible to recursively create the windows and sub-windows according to the disposition path and the practitioner's data.
+For example if the disposition path is ["`speciality`", "`cabinet`"], the display will at first create windows according to the speciality of the pracititioners, and then each of these windows will contain sub-windows accord
+
 ### Initialize the events
 
 ### 
