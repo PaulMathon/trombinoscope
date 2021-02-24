@@ -118,9 +118,9 @@ It enables the user to search for a specific(s) criteria. If the *name field* is
 For example, if the user filled the `speciality` and the `cabinet` fields, then the user will be directed to the corresponding `home ᐅ {specialisty} ᐅ {cabinet}` window without filtering the practitioner's list. If the user filled the `name` and the `cabinet` fields, then the user will be directed to the corresponding `home ᐅ {cabinet}` window and the practitioner's list will be filtered according to the name field's value. 
 - **The map window**: At the center of the window.
 It is the main element of this application. All the other parts are used to organize/manipulate this final element. This element is composed of windows and overview elements depending of the *disposition path* parameter:
-- Each window element contains **one** overview element.
-- Each overview element contains one or multiple sub-window elements.
-- A window can also contain a title.
+  - Each window element contains **one** overview element.
+  - Each overview element contains one or multiple sub-window elements.
+  - A window can also contain a title.
 
 The following example roughly represents it:
 ```html
@@ -158,7 +158,7 @@ Multiple UI events can occur on the application:
 - **Search events**: Start a new search on submitting or clicking on the search button. The [SearchHandler](./src/js/SearchHandler.js) object is used to find the right search options (filtered data, new disposition  and window path, etc.) and the [Context](./src/js/Context.js) object is used to supervise all the search actions. If the data had been filtered from a search by name, it is possible to restore the full practitioner's data by clicking on the "Annuler la recherche" button that appeared.
 - **Zoom events**: When the user clicks on a window, a zoom action is triggered from the [Context](./src/js/Context.js) object and executed by the [Zoomer](./src/js/Zoomer.js) object.
 
-All these events are managed in the [EventHandler] object, which is responsible of triggering the right context action for each event.
+All these events are managed in the [EventHandler](./src/js/EventHandler.js) object, which is responsible of triggering the right context action for each event.
 
 ### UML Diagram
 
