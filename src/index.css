@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
 html, body {
   margin: 0;
   padding: 0;
@@ -187,6 +189,10 @@ html, body {
 #context-container .path-btn:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+#context-container .path-btn:first-child {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 #context-container .path-btn:last-child {

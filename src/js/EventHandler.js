@@ -62,7 +62,7 @@ export class EventHandler {
    */
   initContextPathEvents() {
     document.getElementById("context-container")
-      .children[0].addEventListener("click", this.onPreviousContext());
+      .children[0].addEventListener("click", this.context.onResetSearch());
   }
 
   /**
