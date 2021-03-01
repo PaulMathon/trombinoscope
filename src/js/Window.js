@@ -19,15 +19,16 @@ export class Window {
     const contentElement = htmlElement.querySelector(".overview");
     if (contentElement) {
       let gridTemplateColumns = "";
-      const percentColumns = Math.round(100/this.nbColumns, 2);
+      const percentColumns = 100/this.nbColumns;
 
       for (let i=0; i < this.nbColumns; i++) {
-        gridTemplateColumns += `${percentColumns}% `;
+        gridTemplateColumns += `${percentColumns.toFixed(1)}% `;
       }
       let gridTemplateRows = "";
-      const percentRows = Math.round(100/this.nbLines, 1);
+      const percentRows = 100/this.nbLines;
+
       for (let i=0; i < this.nbLines; i++) {
-        gridTemplateRows += `${percentRows}% `;
+        gridTemplateRows += `${percentRows.toFixed(1)}% `;
       }
       contentElement.style["grid-template-columns"] = gridTemplateColumns;
       contentElement.style["grid-template-rows"] = gridTemplateRows;
