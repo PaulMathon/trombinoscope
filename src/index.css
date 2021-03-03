@@ -253,11 +253,12 @@ html, body {
   box-shadow: 0px 0.1em 0.5em 0.2em #EBEBEB ;
   border-radius: 2%;
   transition: all 100ms;
+  background-color: #f1f1f17e;
 }
 
-.overview:hover {
+#home .overview:hover {
   cursor: zoom-in;
-  background-color: rgb(245, 245, 245);
+  background-color: #ececec;
 }
 
 .practitioner-container {

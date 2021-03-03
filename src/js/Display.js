@@ -21,6 +21,7 @@ export class Display {
 
     if (data.length > 0) {
       const mainWindow = createWindow(data, this.criterias, this.dispositionPath, this.defaultProfileUrl, "home");
+      mainWindow.htmlElement.querySelector(".overview").id = "home";
       document.getElementById("display-content").appendChild(mainWindow.htmlElement);
       document.querySelectorAll(".window-title").forEach(
         (title) => setFontSizeToHeight(title)
