@@ -1,5 +1,4 @@
 import { Window, PractitionerCard } from "./Window.js";
-import { fitText } from "./lib/fitText.js";
 import { UI } from "./UI.js";
 
 /**
@@ -12,6 +11,8 @@ export class Display {
     this.dispositionPath = config.defaultPath;
     this.defaultProfileUrl = config.defaultProfileUrl;
     this.criterias = criterias;
+    this.maxFontSize = config.maxFontSize;
+    this.minFontSize = config.minFontSize;
   }
 
   new(data, dispositionPath) {
@@ -23,8 +24,9 @@ export class Display {
     if (data.length > 0) {
       const mainWindow = createWindow(data, this.criterias, this.dispositionPath, this.defaultProfileUrl, "home");
       document.getElementById("display-content").appendChild(mainWindow.htmlElement);
-      fitText();
-      optimizeTextSize();
+      document.querySelectorAll(".window-title").forEach(
+        (title) => optimizeTextSize(title, this.maxFontSize, this.minFontSize)
+      );
       return mainWindow;
     }
     else {
@@ -82,18 +84,6 @@ function createPractitionerCards(data, defaultProfileUrl) {
   );
 }
 
-function optimizeTextSize() {
-  const titles = document.querySelectorAll(".window-title");
-  titles.forEach((title) => window.fitText(title));
-  adaptSizeToContent();
-
-  window.addEventListener("resize", (event) => {
-    setTimeout(() => {
-      optimizeTextSize();
-    }, 10);
-  });
-}
-
 function toPlural(criteria) {
   switch (criteria) {
     case "speciality":
@@ -105,24 +95,17 @@ function toPlural(criteria) {
   }
 }
 
-function adaptSizeToContent() {
-  const elements = document.querySelectorAll('.window-title');
-  
-  if (elements.length <= 0) {
-    return;
+function optimizeTextSize(title, maxFontSize, minFontSize) {
+  let ourText = title.querySelector("span");
+  let fontSize = maxFontSize;
+  let maxHeight = title.offsetHeight;
+  let textWidth = ourText.offsetWidth;
+  while ((fontSize > maxHeight) &&
+    fontSize > minFontSize) {
+    ourText.style.fontSize = `${fontSize}px`;
+    ourText.style.height = `${fontSize}px`;
+    textWidth = ourText.offsetWidth;
+    fontSize = fontSize - 1;
   }
-  let minSize = parseInt(elements[0].style.fontSize.slice(0, -2));
-  const resizeText = (el) => {
-    const newSize = parseInt(el.style.fontSize.slice(0, -2) - 1);
-    if (newSize < minSize) {
-      minSize = newSize;
-    }
-    el.style.fontSize = `${newSize}px`;
-  };
-  elements.forEach((el) => {
-    while (el.scrollHeight > el.offsetHeight) {
-      resizeText(el);
-    }
-  });
-  return minSize;
+  return;
 }
