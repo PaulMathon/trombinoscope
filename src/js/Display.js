@@ -11,8 +11,6 @@ export class Display {
     this.dispositionPath = config.defaultPath;
     this.defaultProfileUrl = config.defaultProfileUrl;
     this.criterias = criterias;
-    this.maxFontSize = config.maxFontSize;
-    this.minFontSize = config.minFontSize;
   }
 
   new(data, dispositionPath) {
@@ -25,7 +23,10 @@ export class Display {
       const mainWindow = createWindow(data, this.criterias, this.dispositionPath, this.defaultProfileUrl, "home");
       document.getElementById("display-content").appendChild(mainWindow.htmlElement);
       document.querySelectorAll(".window-title").forEach(
-        (title) => optimizeTextSize(title, this.maxFontSize, this.minFontSize)
+        (title) => setFontSizeToHeight(title)
+      );
+      document.querySelectorAll(".pratitioner-name").forEach(
+        (practitionerName) => optimizeTextSize(practitionerName)
       );
       return mainWindow;
     }
@@ -95,17 +96,22 @@ function toPlural(criteria) {
   }
 }
 
-function optimizeTextSize(title, maxFontSize, minFontSize) {
+function setFontSizeToHeight(title) {
   let ourText = title.querySelector("span");
-  let fontSize = maxFontSize;
   let maxHeight = title.offsetHeight;
-  let textWidth = ourText.offsetWidth;
-  while ((fontSize > maxHeight) &&
-    fontSize > minFontSize) {
-    ourText.style.fontSize = `${fontSize}px`;
-    ourText.style.height = `${fontSize}px`;
-    textWidth = ourText.offsetWidth;
-    fontSize = fontSize - 1;
+  ourText.style.fontSize = `${maxHeight}px`;
+  ourText.style.height = `${maxHeight}px`;
+  return;
+}
+
+function optimizeTextSize(title) {
+  let span = title.querySelector("span");
+  const maxWidth = title.offsetWidth;
+  let fontSize = title.offsetHeight;
+  while (span.offsetWidth > maxWidth && fontSize > 0) {
+    span.style.fontSize = `${fontSize}px`;
+    span.style.height = `${fontSize}px`;
+    fontSize--;
   }
   return;
 }

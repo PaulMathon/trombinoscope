@@ -224,6 +224,19 @@ html, body {
   height: 11%;
   margin: 1% 5% 1% 7%;
   font-family: 'PT Sans', sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.window-title span {
+  white-space: nowrap;
+  line-height: 100%;
+  position: absolute;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .window {
@@ -247,17 +260,52 @@ html, body {
   background-color: rgb(245, 245, 245);
 }
 
-.practitioner-card {
+.practitioner-container {
+  width: 50%;
   height: 80%;
   margin: auto;
-  border-radius: 5%;
-  transition: all 300ms;
+  position: relative;
 }
 
-.practitioner-card:hover {
+.img-container {
+  overflow: hidden;
+  border-radius: 5%;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+}
+
+.practitioner-img {
+  max-width:100%;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+  transition: all 500ms ease;
+  float: left;
+}
+
+.pratitioner-name {
+  position: absolute;
+  visibility: hidden;
+  width: 100%;
+  height: 20%;
+  margin: 0;
+  top: 30%;
+  line-height: 0;
+  white-space: nowrap;
+  text-align: center;
+  z-index: 4;
+  transition: all 500ms;
+}
+
+.practitioner-container:hover .practitioner-img {
   cursor: pointer;
-  transform: scale(1.05);
-  opacity: 0.8;
+  opacity: 0.5;
+}
+
+.practitioner-container:hover .pratitioner-name {
+  visibility: visible;
 }
 
 .modal-container {

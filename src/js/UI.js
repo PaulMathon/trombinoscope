@@ -14,7 +14,9 @@ UI.createWindowElement = function(children, containerName) {
   const content = createOverviewElement(children);
   if (containerName && containerName !== "home") {
     let title = document.createElement("p");
-    title.innerHTML = containerName;
+    let span = document.createElement("span");
+    span.innerHTML = containerName;
+    title.appendChild(span);
     title.classList.add("window-title");
     container.appendChild(title);
   } else {
@@ -26,6 +28,12 @@ UI.createWindowElement = function(children, containerName) {
 };
 
 UI.buidPractitionerCardElement = function(practitioner, defaultProfileUrl) {
+  const cardContainer = document.createElement("div");
+  cardContainer.classList.add("practitioner-container");
+
+  const imgContainer = document.createElement("div");
+  imgContainer.classList.add("img-container");
+
   const img = new Image();
   let fistError = true;
   img.onerror = () => {
@@ -33,8 +41,19 @@ UI.buidPractitionerCardElement = function(practitioner, defaultProfileUrl) {
     fistError = false;
   };
   img.src = practitioner.profileURL;
-  img.classList.add("practitioner-card");
-  return img;
+  img.classList.add("practitioner-img");
+
+  imgContainer.appendChild(img);
+
+  const practitionerName = document.createElement("p");
+  practitionerName.classList.add("pratitioner-name");
+  const span = document.createElement("span");
+  span.innerText = `Dr ${practitioner.lastName}`;
+  practitionerName.appendChild(span);
+
+  cardContainer.appendChild(practitionerName);
+  cardContainer.appendChild(imgContainer);
+  return cardContainer;
 };
 
 UI.emptyElementContent = function(container) {
