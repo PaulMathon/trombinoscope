@@ -26,9 +26,13 @@ export class Display {
       document.querySelectorAll(".window-title").forEach(
         (title) => setFontSizeToHeight(title)
       );
-      document.querySelectorAll(".pratitioner-name").forEach(
-        (practitionerName) => optimizeTextSize(practitionerName)
-      );
+      // Wait until images are loaded
+      setTimeout(() => {
+        document.querySelectorAll(".pratitioner-name").forEach(
+          (practitionerName) => optimizeTextSize(practitionerName)
+        );
+      }, 1000);
+      
       return mainWindow;
     }
     else {
@@ -107,7 +111,7 @@ function setFontSizeToHeight(title) {
 
 function optimizeTextSize(title) {
   let span = title.querySelector("span");
-  const maxWidth = title.offsetWidth;
+  const maxWidth = title.parentElement.querySelector(".practitioner-img").offsetWidth;
   let fontSize = title.offsetHeight;
   while (span.offsetWidth > maxWidth && fontSize > 0) {
     span.style.fontSize = `${fontSize}px`;

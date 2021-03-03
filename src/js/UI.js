@@ -31,9 +31,6 @@ UI.buidPractitionerCardElement = function(practitioner, defaultProfileUrl) {
   const cardContainer = document.createElement("div");
   cardContainer.classList.add("practitioner-container");
 
-  const imgContainer = document.createElement("div");
-  imgContainer.classList.add("img-container");
-
   const img = new Image();
   let fistError = true;
   img.onerror = () => {
@@ -43,8 +40,6 @@ UI.buidPractitionerCardElement = function(practitioner, defaultProfileUrl) {
   img.src = practitioner.profileURL;
   img.classList.add("practitioner-img");
 
-  imgContainer.appendChild(img);
-
   const practitionerName = document.createElement("p");
   practitionerName.classList.add("pratitioner-name");
   const span = document.createElement("span");
@@ -52,7 +47,7 @@ UI.buidPractitionerCardElement = function(practitioner, defaultProfileUrl) {
   practitionerName.appendChild(span);
 
   cardContainer.appendChild(practitionerName);
-  cardContainer.appendChild(imgContainer);
+  cardContainer.appendChild(img);
   return cardContainer;
 };
 
