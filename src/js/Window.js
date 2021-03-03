@@ -51,7 +51,7 @@ export class PractitionerCard {
     this.practitioner = practitioner;
     this.htmlElement = htmlElement;
 
-    this.htmlElement.addEventListener("click", this.openModal());
+    this.htmlElement.querySelector(".practitioner-img").addEventListener("click", this.openModal());
     this.modal = new Modal(defaultProfileUrl);
   }
 
