@@ -35,7 +35,7 @@ function getSpecilitiesFromData(data) {
       }
     });
   });
-  return specialities;
+  return specialities.sort((a, b) => a < b ? -1 : 1);
 }
 
 function getCitiesFromData(data) {
@@ -47,7 +47,7 @@ function getCitiesFromData(data) {
       }
     });
   });
-  return cities;
+  return cities.sort((a, b) => a < b ? -1 : 1);
 }
 
 function getCabinetsFromData(data) {
@@ -59,5 +59,5 @@ function getCabinetsFromData(data) {
       }
     });
   });
-  return cabinets;
+  return cabinets.sort((a, b) => a < b ? -1 : 1);
 }
