@@ -28,7 +28,7 @@ export class Display {
       );
       // Wait until images are loaded
       setTimeout(() => {
-        document.querySelectorAll(".pratitioner-name").forEach(
+        document.querySelectorAll(".practitioner-name").forEach(
           (practitionerName) => optimizeTextSize(practitionerName)
         );
       }, 1000);
@@ -102,10 +102,8 @@ function toPlural(criteria) {
 }
 
 function setFontSizeToHeight(title) {
-  let ourText = title.querySelector("span");
   let maxHeight = title.offsetHeight;
-  ourText.style.fontSize = `${maxHeight}px`;
-  ourText.style.height = `${maxHeight}px`;
+  title.style.fontSize = `${maxHeight}px`;
   return;
 }
 

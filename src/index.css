@@ -224,19 +224,11 @@ html, body {
   height: 11%;
   margin: 1% 5% 1% 7%;
   font-family: 'PT Sans', sans-serif;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   position: relative;
-}
-
-.window-title span {
-  white-space: nowrap;
   line-height: 100%;
-  position: absolute;
-  width: 100%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .window {
@@ -277,7 +269,7 @@ html, body {
   border-radius: 5%;
 }
 
-.pratitioner-name {
+.practitioner-name {
   position: absolute;
   visibility: hidden;
   width: 70%;
@@ -297,7 +289,7 @@ html, body {
   opacity: 0.5;
 }
 
-.practitioner-container:hover .pratitioner-name {
+.practitioner-container:hover .practitioner-name {
   visibility: visible;
 }
 

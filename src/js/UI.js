@@ -14,9 +14,7 @@ UI.createWindowElement = function(children, containerName) {
   const content = createOverviewElement(children);
   if (containerName && containerName !== "home") {
     let title = document.createElement("p");
-    let span = document.createElement("span");
-    span.innerHTML = containerName;
-    title.appendChild(span);
+    title.innerHTML = containerName;
     title.classList.add("window-title");
     container.appendChild(title);
   } else {
@@ -41,7 +39,7 @@ UI.buidPractitionerCardElement = function(practitioner, defaultProfileUrl) {
   img.classList.add("practitioner-img");
 
   const practitionerName = document.createElement("p");
-  practitionerName.classList.add("pratitioner-name");
+  practitionerName.classList.add("practitioner-name");
   const span = document.createElement("span");
   span.innerText = `Dr ${practitioner.lastName}`;
   practitionerName.appendChild(span);

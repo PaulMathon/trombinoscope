@@ -114,7 +114,7 @@ The tool is organized in four diferent parts:
 It shows where you are in the application. You can go back on one of the previous steps saved in the path by clicking on the corresponding item.
 - **The disposition option**: At the top right corner of the window.
 It shows how you can organize the practitioners:
-  - If you are at the `Home` position, you can order the pratitioners by speciality, city, cabinet or keeping them unordered.
+  - If you are at the `Home` position, you can order the practitioners by speciality, city, cabinet or keeping them unordered.
   - If you are at the `Home > {speciality}` position, you can order the practitioners by cabinet, city or keeping them unordered.
   - If you are at the `Home > {cabinet}` position, you can order the practitioners by speciality or keeping them unordered.
   - If you are at the `Home > {cabinet} > {speciality}` position, you can keep the practitioners unordered
